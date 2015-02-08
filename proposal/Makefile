@@ -5,6 +5,7 @@ all:
 	pdflatex proposal.tex
 	pdflatex proposal.tex
 	pdflatex proposal.tex
+	touch build/ || mkdir build
 	mv *.aux build/.
 	mv *.log build/.
 	mv *.bbl build/.
