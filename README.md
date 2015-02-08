@@ -1,7 +1,8 @@
 # Research Topic Title
     Ross Nordstrom
     University of Colorado - Colorado Springs
-    CS 5910 - Computer/Network Security
+    CS 5860 - Machine Learning
+    Spring 2015, Prof. Kalita
 
 ## Abstract
 > Abstract goes here

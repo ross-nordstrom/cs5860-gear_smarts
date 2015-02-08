@@ -10,7 +10,7 @@ all:
 	mv *.bbl build/.
 	mv *.blg build/.
 	mv *.out build/.
-	mv proposal.pdf Nordstrom_SocialWiFi.pdf
+	mv proposal.pdf Nordstrom_GearSmarts.pdf
 
 clean:
 	rm -fv *.aux *.pdf *.log *.bbl *.blg *.out
