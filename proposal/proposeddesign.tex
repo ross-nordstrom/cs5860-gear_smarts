@@ -14,7 +14,7 @@ Smarts. Some options include:
 \begin{description}
   \item{kNN:} These can help to simplify a problem when you don't have a good model of the larger application
   \item{Decision tree:} Again, this is a relatively simple implementation that replaces modeling with basic relationships
-  \item{Bayesian network:} Takes a statistical approach to modelling data
+  \item{Bayesian network:} Takes a statistical approach to modeling data
   \item{Support Vector Machine:} Non-linear classification using the ''kernel trick``. A short-coming is SVMs must classify
   datapoints into one of two categories. While this can be worked with for Gear Smarts, it has the potential to be limiting.
   \item{Artificial Neural Network:} These can adapt to a huge variety of problems, and are interesting in that they emulate
@@ -22,3 +22,29 @@ Smarts. Some options include:
   \item{Others:} There are many many other machine learning techniques that I could also investigate.
 \end{description}
 
+Regardless of the algorithm chosen, I will need to construct a training dataset with which to prepare the system. To do this,
+I will enter in some hypothetical outfits, weather status, and comfort levels.
+
+\subsection{Problem Modeling}
+Before using a machine learning system, I will need to determine how to best model the problem. It can be broken down into three fundamental parts:
+
+\begin{description}
+  \item{Outfit:} Outfits can either be modeled individually or as a summation of individual articles (potentially introducing
+  a knapsack problem). Additionally, they can be represented categorically (e.g. vest, full-zip, etc. and fleece, down, cotton, etc.)
+  or by derived characteristics (e.g. thermal retention, mobility, wind-resistance).
+  \item{Weather:} Weather should likely be characterized in terms of temperature, humidity, wind, pressure, 
+  cloud cover, and precipitation.
+  \item{Comfort:} Intuitively, there are three basic comfort levels relevant to Gear Smart: too cold, comfortable, and too hot.
+\end{description}
+
+\subsection{User Interface}
+A simple way to enable user interaction would be to expose the Machine Learning system via a RESTful API and consume it
+through a mobile app. The interface on the app would simply ask the user what their outfit was that day, and how comfortable
+they were. Under the hood, the app would record the user's geolocation and query some service for weather information 
+about that location on that day. Then it would convert that data into a representative feature set with which to send
+the Machine Learning API for training.
+
+Later, the user could use the app to ask the question "what should I wear today?" Using the trained data, the app can
+suggest which outfit to wear. Something I will need to determine is whether or not to burden the user with managing 
+their wardrobe in the system, allowing the system to more usefully suggest outfits. The alternative is to hope the
+learning mechanism would adapt to which items each user has based on their feedback.
