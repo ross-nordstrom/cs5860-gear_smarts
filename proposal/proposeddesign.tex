@@ -1,38 +1,40 @@
 \section{Proposed Design}
 \label{section:propeseddesign}
-To develop a climate and activity based outfit suggestion tool, I will need to break the problem into parts.
-At it's core will be a Machine Learning algorithm along with a datastore for the training data. Wrapping that will
-be a query system and optimistically a mobile app for training the system. Additionally, I will need to determine 
-the best way to represent the problem set in terms of features. Here, I break down the parts of the system and what
-work I envision is needed.
+To develop a climate and activity based outfit suggestion tool, the problem will be broken into parts.
+At its core will be a Machine Learning algorithm along with a datastore for the training data. Wrapping that will
+be a query system and optimistically a mobile app for training the system. Additionally, a feature-based representation
+will need to be determined. In this section, the envisioned parts of the system are presented.
 
 \subsection{Learning Core}
-Firstly, I will need to determine the best Machine Learning method to use. I have found a number of articles evaluating
-various techniques in other applications. They should give me insight into which technique is most appropriate for Gear
-Smarts. Some options include:
+Firstly, a Machine Learning method must be selected. Existing articles should give insight into which technique is
+most appropriate for Gear Smarts. Some options are listed below:
 
 \begin{description}
-  \item{kNN:} These can help to simplify a problem when you don't have a good model of the larger application
+  \item{kNN:} Can help to simplify a problem in the absence of a good model of the larger application
   \item{Decision tree:} Again, this is a relatively simple implementation that replaces modeling with basic relationships
   \item{Bayesian network:} Takes a statistical approach to modeling data
-  \item{Support Vector Machine:} Non-linear classification using the ''kernel trick``. A short-coming is SVMs must classify
-  datapoints into one of two categories. While this can be worked with for Gear Smarts, it has the potential to be limiting.
+  \item{Support Vector Machine:} Non-linear classification using the ''kernel trick``. A short-coming is solving for multiple
+  classes can add complexity, as a common technique is to use multiple binary SVM classifiers. While this can be worked with
+  for Gear Smarts, it has the potential to be limiting.
   \item{Artificial Neural Network:} These can adapt to a huge variety of problems, and are interesting in that they emulate
   human (and animal) learning. A major down-side is they can be complex and costly to implement.
-  \item{Others:} There are many many other machine learning techniques that I could also investigate.
+  \item{Others:} There are many many other machine learning techniques that could also be investigated.
 \end{description}
 
-Regardless of the algorithm chosen, I will need to construct a training dataset with which to prepare the system. To do this,
-I will enter in some hypothetical outfits, weather status, and comfort levels.
+Regardless of the algorithm chosen, a training dataset will need to be constructed with which to prepare the system. To do this,
+data will be synthesized from both real-world experience and common sense.
 
 \subsection{Problem Modeling}
-Before using a machine learning system, I will need to determine how to best model the problem. It can be broken down into three fundamental parts:
+Before using a machine learning system, the problem must be modeled properly. It can be broken down into three fundamental parts:
 
 \begin{description}
   \item{Outfit:} Outfits can either be modeled individually or as a summation of individual articles (potentially introducing
-  a knapsack problem). Additionally, they can be represented categorically (e.g. vest, full-zip, etc. and fleece, down, cotton, etc.)
-  or by derived characteristics (e.g. thermal retention, mobility, wind-resistance).
-  \item{Weather:} Weather should likely be characterized in terms of temperature, humidity, wind, pressure, 
+  a knapsack problem \footnote{The knapsack problem seeks to optimize a value by searching combinations of a set. In Gear Smarts,
+  we might represent an outfit with a KPI that should closely match a KPI produced by a function of the weather. Meanwhile, each
+  article of clothing in a wardrobe could have a KPI suggesting how warm it is. To properly match the knapsack problem, we might
+  introduce a mobility metric for each article.}). Additionally, they can be represented categorically (e.g. vest or full-zip and
+  fleece, down, and cotton) or by derived characteristics (e.g. thermal retention, mobility, wind-resistance).
+  \item{Weather:} Weather should likely be characterized in terms of temperature, humidity, wind, pressure,
   cloud cover, and precipitation.
   \item{Comfort:} Intuitively, there are three basic comfort levels relevant to Gear Smart: too cold, comfortable, and too hot.
 \end{description}
@@ -40,11 +42,11 @@ Before using a machine learning system, I will need to determine how to best mod
 \subsection{User Interface}
 A simple way to enable user interaction would be to expose the Machine Learning system via a RESTful API and consume it
 through a mobile app. The interface on the app would simply ask the user what their outfit was that day, and how comfortable
-they were. Under the hood, the app would record the user's geolocation and query some service for weather information 
+they were. Under the hood, the app would record the user's geolocation and query some service for weather information
 about that location on that day. Then it would convert that data into a representative feature set with which to send
 the Machine Learning API for training.
 
 Later, the user could use the app to ask the question "what should I wear today?" Using the trained data, the app can
-suggest which outfit to wear. Something I will need to determine is whether or not to burden the user with managing 
+suggest which outfit to wear. Something to determine is whether or not to burden the user with managing
 their wardrobe in the system, allowing the system to more usefully suggest outfits. The alternative is to hope the
 learning mechanism would adapt to which items each user has based on their feedback.
