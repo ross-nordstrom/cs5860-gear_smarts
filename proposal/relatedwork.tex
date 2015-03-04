@@ -1,32 +1,29 @@
 \section{Related Work}
 \label{section:relatedwork}
 While there have been a number of works in automating outfit selection, they are all geared towards
-fashion selection either for aesthetics or occasions (e.g. wedding, funeral, interview, church, etc.).
-I have not been able to find any existing work in the climate-outfitting field, let alone with an
+fashion selection either for aesthetics or occasions (e.g. wedding, funeral, interview, or church).
+There does not seem to be any existing work in the climate-outfitting field, let alone with an
 activity focus.
 
-In general, the related works I have found fall into three categories: fashionable outfit selection, category-based 
-outfit selection, and general temperature/climate automation. Here I give a brief description of the related works
-I have found:
+In general, related works fall into three categories: fashionable outfit selection, category-based
+outfit selection, and general temperature/climate automation. Here several related works are briefly introduced:
 
 \subsection{Fashionable Outfit Selection}
-\begin{description}
-  \item{Dressup!: Outfit Synthesis Through Automatic Optimization:} Uses a wardrobe of known clothes to suggest 
-  outfits based on your appearance. Of note is that outfits are suggested based on a dress code constraint \cite{Dressup}.
-  \item{Rethinking the Smart Closet As an Opportunity to Enhance the Social Currency of Clothing:} Outfit selection and 
-  sharing focused on comparing and lending wardrobe to other \cite{SmartCloset}.
-  \item{Hi, Magic Closet, Tell Me What to Wear!} The researchers used Amazon's mechanical turks to fill a database
-  of available-to-purchase outfits. Using this dataset, they constructed an occasion-oriented outfit suggestion
-  tool \cite{MagicCloset}.
-  \item{Understanding Adaptive Thermal Comfort: New Directions for UbiComp:} While unrelated to outfit planning, this
-  paper discusses a new approach to thermal control of homes. This could relate well to adapting my system to sub-activities
-  with different thermal properties (e.g. mogul vs groomer skiing) \cite{ThermalComfort}.
-\end{description}
+\cite{Dressup} uses a wardrobe of known clothes to suggest outfits based on the user's appearance.
+Of note is that outfits are suggested based on a dress code constraint, which is a similar task to
+the challenge of outfit selection.
+
+\cite{SmartCloset} works on outfit selection and sharing, focused on comparing and lending wardrobe
+to others. There may be some similarities between this and the idea of comparing user outfit preferences
+for Gear Smarts.
+
+\cite{MagicCloset} used Amazon's mechanical turks to fill a database of available-to-purchase outfits.
+Using this dataset, they constructed an occasion-oriented outfit suggestion tool similar to \cite{Dressup}.
+
+\cite{ThermalComfort} discusses a new approach to thermal control of homes. This could relate well to
+adapting Gear Smarts to sub-activities with different thermal properties (e.g. mogul vs groomer skiing).
 
 \subsection{Machine Learning Technique Selection}
-\begin{description}
-  \item{Distributed Tuning of Machine Learning Algorithms Using MapReduce Clusters} \cite{ML:MapReduceClusters}
-  \item{A Comparison of Machine-learning Algorithms for Dynamic Scheduling of Flexible Manufacturing Systems} \cite{ML:ManufacturingSystems}
-  \item{A Preliminary Performance Comparison of Five Machine Learning Algorithms for Practical IP Traffic Flow Classification} \cite{ML:IPTraffic}
-  \item{ Mapping Using Remote Sensing Data: A Comparison of Five Machine Learning Algorithms, Their Response to Variations in the Spatial Distribution of Training Data and the Use of Explicit Spatial Information} \cite{ML:GeoMapping}
-\end{description}
+There are numerous papers discussing and comparing the various options for Machine Learning techniques.
+Some relevant papers to the decision of which technique to use for Gear Smarts include \cite{ML:MapReduceClusters},
+\cite{ML:ManufacturingSystems}, \cite{ML:IPTraffic}, and \cite{ML:GeoMapping}.
