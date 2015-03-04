@@ -1,12 +1,12 @@
 \section{Proposed Design}
 \label{section:propeseddesign}
 To develop a climate and activity based outfit suggestion tool, the problem will be broken into parts.
-At its core will be a Machine Learning algorithm along with a datastore for the training data. Wrapping that will
+At its core will be a machine learning algorithm along with a datastore for the training data. Wrapping that will
 be a query system and optimistically a mobile app for training the system. Additionally, a feature-based representation
 will need to be determined. In this section, the envisioned parts of the system are presented.
 
 \subsection{Learning Core}
-Firstly, a Machine Learning method must be selected. Existing articles should give insight into which technique is
+Firstly, a machine learning method must be selected. Existing articles should give insight into which technique is
 most appropriate for Gear Smarts. Some options are listed below:
 
 \begin{description}
@@ -40,11 +40,11 @@ Before using a machine learning system, the problem must be modeled properly. It
 \end{description}
 
 \subsection{User Interface}
-A simple way to enable user interaction would be to expose the Machine Learning system via a RESTful API and consume it
+A simple way to enable user interaction would be to expose the machine learning system via a RESTful API and consume it
 through a mobile app. The interface on the app would simply ask the user what their outfit was that day, and how comfortable
 they were. Under the hood, the app would record the user's geolocation and query some service for weather information
 about that location on that day. Then it would convert that data into a representative feature set with which to send
-the Machine Learning API for training.
+the machine learning API for training.
 
 Later, the user could use the app to ask the question "what should I wear today?" Using the trained data, the app can
 suggest which outfit to wear. Something to determine is whether or not to burden the user with managing
