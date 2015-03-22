@@ -2,7 +2,7 @@
   "name": "gear-smarts",
   "main": "api.js",
   "description": "Applying Machine Learning towards weather-based gear selection",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Ross Nordstrom <ross.nordstrom@flukenetworks.com> (http://github.com/ross-nordstrom)",
   "contributors": [],
   "private": true,
