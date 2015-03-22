@@ -1,0 +1,62 @@
+{
+  "name": "gear-smarts",
+  "main": "api.js",
+  "description": "Applying Machine Learning towards weather-based gear selection",
+  "version": "0.1.0",
+  "author": "Ross Nordstrom <ross.nordstrom@flukenetworks.com> (http://github.com/ross-nordstrom)",
+  "contributors": [],
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ross-nordstrom/cs5860-gear_smarts"
+  },
+  "bugs": "https://github.com/ross-nordstrom/cs5860-gear_smarts/issues",
+  "scripts": {
+    "start": "node api.js",
+    "autorun": "nodemon api.js",
+    "basictest": "mocha -R spec -t 60s -s 1s --recursive",
+    "pretest": "jshint lib/",
+    "test": "./node_modules/istanbul/lib/cli.js cover ./node_modules/.bin/_mocha -- -R spec -t 60s -s 1s --recursive",
+    "posttest": "npm run complexity; npm run document",
+    "coverage": "./node_modules/istanbul/lib/cli.js cover ./node_modules/.bin/_mocha -- -R spec -t 60s -s 1s --recursive",
+    "complexity": "plato -d plato/ -r lib/ ./api.js ./server.js",
+    "autotest": "nodemon --watch test/* -e test.js --watch lib/* -e js  --watch . -e md --exec 'npm test'",
+    "release": "npm-release",
+    "whats-new": "git list-diff origin/master",
+    "promote-rc": "git checkout rc && git pull origin rc && git branch -d master && git checkout -b master && git push -u origin master -f",
+    "promote": "git branch -d master && git checkout -b master && git push -u origin master -f",
+    "document": "jsdoc -P package.json -r -d ./doc/ -R ./README.md ./lib/ 2> /dev/null || true",
+    "autodoc": "nodemon --watch lib --exec \"npm\" run document"
+  },
+  "dependencies": {
+    "express": "4.10.8",
+    "body-parser": "1.10.1",
+    "errorhandler": "1.3.2",
+    "underscore": "1.7.0",
+    "async": "0.9.0",
+    "moment": "2.9.0",
+    "git-rev": "0.2.1",
+    "serve-index": "1.6.3",
+    "serve-static": "1.9.2",
+    "http-auth": "2.2.5",
+    "url": "0.10.3",
+    "bunyan": "1.3.4"
+  },
+  "devDependencies": {
+    "mocha": "2.1.0",
+    "expect.js": "0.3.1",
+    "superagent": "0.21.0",
+    "supertest": "0.15.0",
+    "chance": "0.7.1",
+    "istanbul": "0.3.5",
+    "nodemon": "1.3.7",
+    "jshint": "2.6.0",
+    "plato": "1.3.0",
+    "npm-release": "0.0.4",
+    "jsdoc": "latest"
+  },
+  "engines": {
+    "node": "0.10.x",
+    "npm": "2.3.x"
+  }
+}
