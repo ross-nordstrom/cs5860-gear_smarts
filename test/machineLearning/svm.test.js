@@ -71,18 +71,47 @@ describe('MachineLearning/Svm', function () {
 
             return async.series([
                 function (taskCb) {
-                    return FUT('lkasdf', null, null, testCallback(taskCb));
+                    return FUT('lkasdf', null, null, null, testCallback(taskCb));
                 },
                 function (taskCb) {
-                    return FUT(demoSvm, [Infinity], null, testCallback(taskCb));
+                    return FUT(demoSvm, [Infinity], null, null, testCallback(taskCb));
                 },
                 function (taskCb) {
-                    return FUT(demoSvm, 'drseuss', 'lkajsdf', testCallback(taskCb));
+                    return FUT(demoSvm, [Infinity], [Infinity], null, testCallback(taskCb));
                 },
                 function (taskCb) {
-                    return FUT(demoSvm, 'drseuss', {foo: 'bar'}, testCallback(taskCb));
+                    return FUT(demoSvm, 'drseuss', 'lkajsdf', null, testCallback(taskCb));
+                },
+                function (taskCb) {
+                    return FUT(demoSvm, 'drseuss', {foo: 'bar'}, null, testCallback(taskCb));
                 }
             ], done);
         });
     }); // describe('train')
+
+    // Internal functions
+    describe('indexFeaturesReducer', function () {
+        var FUT = Svm.indexFeaturesReducer;
+
+        it('should be a function', function (done) {
+            expect(FUT).to.be.a('function');
+            return done();
+        });
+        it('should work on an example usage', function (done) {
+            var allFeatures = FUT({}, 'fleece', 'coat');
+            expect(allFeatures).to.eql({coat: ['fleece']});
+
+            // Idempotent
+            allFeatures = FUT(allFeatures, 'fleece', 'coat');
+            expect(allFeatures).to.eql({coat: ['fleece']});
+
+            allFeatures = FUT(allFeatures, 'shell', 'coat');
+            expect(allFeatures).to.eql({coat: ['fleece', 'shell']});
+
+            allFeatures = FUT(allFeatures, 'snowpants', 'pants');
+            expect(allFeatures).to.eql({coat: ['fleece', 'shell'], pants: ['snowpants']});
+
+            return done();
+        });
+    }); // describe('indexFeaturesReducer')
 }); // describe('MachineLearning/Svm')
