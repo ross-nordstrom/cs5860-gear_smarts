@@ -51,4 +51,38 @@ describe('MachineLearning/Svm', function () {
             return done();
         });
     }); // describe('create')
+    describe('train', function () {
+        var FUT = Svm.train;
+
+        it('should be a function', function (done) {
+            expect(FUT).to.be.a('function');
+            return done();
+        });
+        it('should not operate on bad inputs', function (done) {
+            var demoSvm = Svm.create();
+
+            var testCallback = function (cb) {
+                return function (err, res) {
+                    expect(err).to.be.an(Error);
+                    expect(res).to.not.be.ok();
+                    return cb();
+                };
+            };
+
+            return async.series([
+                function (taskCb) {
+                    return FUT('lkasdf', null, null, testCallback(taskCb));
+                },
+                function (taskCb) {
+                    return FUT(demoSvm, [Infinity], null, testCallback(taskCb));
+                },
+                function (taskCb) {
+                    return FUT(demoSvm, 'drseuss', 'lkajsdf', testCallback(taskCb));
+                },
+                function (taskCb) {
+                    return FUT(demoSvm, 'drseuss', {foo: 'bar'}, testCallback(taskCb));
+                }
+            ], done);
+        });
+    }); // describe('train')
 }); // describe('MachineLearning/Svm')
