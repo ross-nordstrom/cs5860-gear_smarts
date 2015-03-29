@@ -2,6 +2,6 @@
   "ignore": [
     "coverage/*",
     "plato/*",
-    "test/*"
+    "doc/*"
   ]
 }

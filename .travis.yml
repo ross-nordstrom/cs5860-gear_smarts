@@ -1,0 +1,10 @@
+language: node_js
+node_js:
+- '0.10'
+env:
+  global:
+  - LOG_LEVEL: error
+sudo: false
+branches:
+  only:
+  - master
