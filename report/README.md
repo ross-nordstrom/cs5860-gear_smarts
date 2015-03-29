@@ -1,6 +1,6 @@
 # Overview
 
-The proposal is built using [LaTex](http://www.latex-project.org/). 
+The proposal is built using [LaTex](http://www.latex-project.org/).
 The directory is setup so you simply need to edit the text within
 the *.tex files, then build a `PDF` with:
 ```bash
@@ -18,9 +18,9 @@ The file structure:
  - Makefile             - builds the report
  - sig-alternate.cls    - template defining the structure of the PDF
  - [Paper contents]     - contents of the report
-    - proposal.tex                        - main contents of the paper. includes the other files during build time
-    - {motivation, ..., conclusion}.tex   - each file represents a section of the paper
-    - citations.bib                       - list of citations. In ACM, click "BibTeX" then copy/paste the contents of the popup. These can be referenced by name
+    - report.tex                        - main contents of the paper. includes the other files during build time
+    - {motivation, ..., conclusion}.tex - each file represents a section of the paper
+    - citations.bib                     - list of citations. In ACM, click "BibTeX" then copy/paste the contents of the popup. These can be referenced by name
 ```
 
 ## Building
