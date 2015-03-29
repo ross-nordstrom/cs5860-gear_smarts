@@ -87,6 +87,56 @@ describe('MachineLearning/Svm', function () {
                 }
             ], done);
         });
+        it('should work on the XOR example', function (done) {
+            var xorSvm = Svm.create();
+
+            return async.series([
+                function (taskCb) {
+                    return Svm.train(xorSvm, 'xor', '0', {a: 0, b: 0}, function (err, res) {
+                        expect(err).to.not.be.ok();
+                        expect(res).to.eql([
+                            [[0, 0], 0]
+                        ]);
+                        return taskCb();
+                    });
+                },
+                function (taskCb) {
+                    return Svm.train(xorSvm, 'xor', '1', {a: 0, b: 1}, function (err, res) {
+                        expect(err).to.not.be.ok();
+                        expect(res).to.eql([
+                            [[0, 0], 0],
+                            [[0, 1], 1]
+                        ]);
+                        return taskCb();
+                    });
+                },
+                function (taskCb) {
+                    return Svm.train(xorSvm, 'xor', '1', {a: 1, b: 0}, function (err, res) {
+                        expect(err).to.not.be.ok();
+                        expect(res).to.eql([
+                            [[0, 0], 0],
+                            [[0, 1], 1],
+                            [[1, 0], 1]
+                        ]);
+                        return taskCb();
+                    });
+                },
+                function (taskCb) {
+                    return Svm.train(xorSvm, 'xor', '0', {a: 1, b: 1}, function (err, res) {
+                        expect(err).to.not.be.ok();
+                        expect(res).to.eql([
+                            [[0, 0], 0],
+                            [[0, 1], 1],
+                            [[1, 0], 1],
+                            [[1, 1], 0]
+                        ]);
+                        return taskCb();
+                    });
+                }
+            ], function (err, res) {
+                return done();
+            });
+        });
     }); // describe('train')
 
     // Internal functions
