@@ -4,6 +4,7 @@ node_js:
 env:
   global:
   - LOG_LEVEL: error
+sudo: false
 branches:
   only:
   - master
