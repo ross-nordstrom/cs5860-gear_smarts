@@ -84,6 +84,61 @@ curl `http://localhost:8080/v1/ml/xor/classify' \
 # Server's response ==> "1"
 \end{lstlisting}
 
+The example code above aims to demonstrate how easy it is to interact with the GearSmarts API. This ease of use will
+help simplify the to-be-built UI application for interacting with GearSmarts. The current expected call syntax for
+training and classifying outfits based on weather and activity is shown below.
+
+\begin{lstlisting}
+# Train a comfort level (hot) on an
+#       activity, outfit, and temperature
+curl `localhost:8080/v1/ml/gear/train/hot'\
+    -H `Content-Type: application/json' \
+    --data-binary `{   \
+        "sport": "ski",     \
+        "snowpants": true,  \
+        "base": true,       \
+        "downCoat": true,   \
+        "shell": true,      \
+        "temp": 58.3,       \
+        "humidity": 0.10,   \
+        "pressure": 1
+    }'
+\end{lstlisting}
+
+The server will put these features into a dictionary of known features. Since SVMs are fast, we can just store all
+datapoints ever seen for the namespace, and re-train with each new incoming datapoint. The dictionary simply converts
+the key/value object into a tabular structure. An example of what the dictionary would look like after the above
+training datapoint and a few others is shown below.
+
+\begin{table}
+    \begin{tabular}{lll}
+        \hline
+        \multicolumn{3}{c}{Classification} \\
+        \hline
+        0 & 1 & 2 \\
+        hot & ok & cold \\
+        \hline
+    \end{tabular}
+    \caption{The SVM prefers integer classifications, so store an Array of known classes, and use their index in the SVM}
+\end{table}
+
+\begin{table}
+    \begin{tabular}{lllllr}
+        \hline
+        \multicolumn{6}{c}{Trained Data} \\
+        \multicolumn{5}{c}{Features} & Class \\
+        \hline
+        sport   & snowpants & base  & downCoat & temp   \\
+        \hline
+        \hline
+        ski     & true      & true  & true      & 58.3  & 0 \\
+        iceFish & true      & true  & true      & 43.1  & 2 \\
+        hike    & false     & false & true      & 49.6  & 1 \\
+        \hline
+    \end{tabular}
+    \caption{The dataset is stored as a table with an Array of feature names and Array of Arrays of feature values}
+\end{table}
+
 
 \subsubsection{Machine Learning Methods}
 \label{subsection:mloptions}
@@ -103,20 +158,23 @@ most appropriate for Gear Smarts. Some options are listed below:
 \end{description}
 
 \subsection{Problem Modeling}
-Before using a machine learning system, the problem must be modeled properly. It can be broken down into three fundamental parts,
-described below.
+Before using a machine learning system, the problem needed to be modeled properly. It can be broken down into three
+fundamental parts, described below.
 
 \begin{description}
   \item{Outfit:} Outfits can either be modeled individually or as a summation of individual articles (potentially introducing
-  a knapsack problem \footnote{The knapsack problem seeks to optimize a value by searching combinations of a set. In Gear Smarts,
+  a knapsack problem\footnote{The knapsack problem seeks to optimize a value by searching combinations of a set. In Gear Smarts,
   we might represent an outfit with a KPI that should closely match a KPI produced by a function of the weather. Meanwhile, each
   article of clothing in a wardrobe could have a KPI suggesting how warm it is. To properly match the knapsack problem, we might
-  introduce a mobility metric for each article.}). Additionally, they can be represented categorically (e.g. vest or full-zip and
+  introduce a mobility metric for each article.}).
+  Additionally, they can be represented categorically (e.g. vest or full-zip and
   fleece, down, and cotton) or by derived characteristics (e.g. thermal retention, mobility, wind-resistance).
   \item{Weather:} Weather should likely be characterized in terms of temperature, humidity, wind, pressure,
   cloud cover, and precipitation.
   \item{Comfort:} Intuitively, there are three basic comfort levels relevant to Gear Smart: too cold, comfortable, and too hot.
 \end{description}
+
+
 
 \subsection{User Interface}
 A simple way to enable user interaction would be to expose the machine learning system via a RESTful API and consume it
