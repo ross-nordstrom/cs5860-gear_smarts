@@ -13,7 +13,7 @@ most appropriate for Gear Smarts. Some options are listed below:
   \item{kNN:} Can help to simplify a problem in the absence of a good model of the larger application
   \item{Decision tree:} Again, this is a relatively simple implementation that replaces modeling with basic relationships
   \item{Bayesian network:} Takes a statistical approach to modeling data
-  \item{Support Vector Machine:} Non-linear classification using the ''kernel trick``. A short-coming is solving for multiple
+  \item{Support Vector Machine:} Non-linear classification using the ``kernel trick.'' A short-coming is solving for multiple
   classes can add complexity, as a common technique is to use multiple binary SVM classifiers. While this can be worked with
   for Gear Smarts, it has the potential to be limiting.
   \item{Artificial Neural Network:} These can adapt to a huge variety of problems, and are interesting in that they emulate
@@ -25,7 +25,8 @@ Regardless of the algorithm chosen, a training dataset will need to be construct
 data will be synthesized from both real-world experience and common sense.
 
 \subsection{Problem Modeling}
-Before using a machine learning system, the problem must be modeled properly. It can be broken down into three fundamental parts:
+Before using a machine learning system, the problem must be modeled properly. It can be broken down into three fundamental parts,
+described below.
 
 \begin{description}
   \item{Outfit:} Outfits can either be modeled individually or as a summation of individual articles (potentially introducing
@@ -46,7 +47,7 @@ they were. Under the hood, the app would record the user's geolocation and query
 about that location on that day. Then it would convert that data into a representative feature set with which to send
 the machine learning API for training.
 
-Later, the user could use the app to ask the question "what should I wear today?" Using the trained data, the app can
+Later, the user could use the app to ask the question ``what should I wear today?'' Using the trained data, the app can
 suggest which outfit to wear. Something to determine is whether or not to burden the user with managing
 their wardrobe in the system, allowing the system to more usefully suggest outfits. The alternative is to hope the
 learning mechanism would adapt to which items each user has based on their feedback.
