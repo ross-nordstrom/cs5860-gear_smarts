@@ -138,6 +138,65 @@ describe('MachineLearning/Svm', function () {
             });
         });
     }); // describe('train')
+    describe('classify', function () {
+        var FUT = Svm.classify;
+        var xorSvm = Svm.create();
+        var xor = [
+            [[0, 0], 'xor_no'],
+            [[0, 1], 'xor_yes'],
+            [[1, 0], 'xor_yes'],
+            [[1, 1], 'xor_no']
+        ];
+
+        before(function (cb) {
+            return async.map(xor, function (row, rowCb) {
+                return Svm.train(xorSvm, 'xor', row[1], {a: row[0][0], b: row[0][1]}, rowCb);
+            }, cb);
+        });
+
+        it('should be a function', function (done) {
+            expect(FUT).to.be.a('function');
+            return done();
+        });
+        it('should not operate on bad inputs', function (done) {
+            var demoSvm = Svm.create();
+
+            var testCallback = function (cb) {
+                return function (err, res) {
+                    expect(err).to.be.an(Error);
+                    expect(res).to.not.be.ok();
+                    return cb();
+                };
+            };
+
+            return async.series([
+                function (taskCb) {
+                    return FUT('lkasdf', null, null, testCallback(taskCb));
+                },
+                function (taskCb) {
+                    return FUT(demoSvm, [Infinity], null, testCallback(taskCb));
+                },
+                function (taskCb) {
+                    return FUT(demoSvm, [Infinity], [Infinity], testCallback(taskCb));
+                },
+                function (taskCb) {
+                    return FUT(demoSvm, 'drseuss', 'lkajsdf', testCallback(taskCb));
+                },
+                function (taskCb) {
+                    return FUT(demoSvm, 'drseuss', {foo: 'bar'}, testCallback(taskCb));
+                }
+            ], done);
+        });
+        it('should work on the XOR example', function (done) {
+            return async.map(xor, function (row, rowCb) {
+                return Svm.classify(xorSvm, 'xor', {a: row[0][0], b: row[0][1]}, function (err, classification) {
+                    expect(err).to.not.be.ok();
+                    expect(classification).to.equal(row[1]);
+                    return rowCb();
+                });
+            }, done);
+        });
+    }); // describe('classify')
 
     // Internal functions
     describe('indexFeaturesReducer', function () {
