@@ -1,0 +1,208 @@
+\section{Design}
+\label{section:design}
+To develop a climate and activity based outfit suggestion tool, the problem has been broken into parts.
+At its core is a machine learning algorithm along with a datastore for the training data. Wrapping that is
+a query system and optimistically a mobile app for training the system. Additionally, an outfit modeller and persistence
+engine will be implemented. In this section, the envisioned parts of the system are presented.
+
+\subsection{Learning Core}
+Firstly, Support Vector Machine (SVM) was chosen as the machine learning method for implementing an outfit predictor.
+Justification for this choice is provided in \ref{section:mlsvm}. Some other methods which were considered are
+denoted in \ref{section:mloptions}. The learning core was implemented as a Node.js RESTful API to make it easy for a
+Mobile App or Web UI to consume on behalf of users of Gear Smarts. The API is described below in \ref{section:mlapi}.
+
+\subsubsection{Justification for SVM}
+\label{section:mlsvm}
+Support Vector Machines were chosen over alternative machine learning methods for three main reasons.
+
+Firstly, SVMs are built for classification problems and can be configured in a number of ways (such as linear vs.
+nonlinear classifying) to make it extensible to a wider variety of problems than other methods might allow. This is
+ideal for GearSmarts since we are exploring the problem space as much as solving it. The flexibility of SVMs will
+help us react to changing or perhaps surprising discoveries.
+
+The second reason for using SVMs is there is already an easy-to-use Node.js implementation library, \texttt{node-svm}
+\cite{Github:nodesvm}. Since the details of implementing SVM are abstracted away, all we need concern ourselves with in
+the GearSmarts API is normalizing and namespacing the datasets provided by consumers.
+
+Thirdly, the author already had experience with popular machine learning methods like Aritificial Neural Networks, and
+Decision Trees. Support vector machines offer an opportunity to learn a new method and compare it to experiences with
+other methods.
+
+\subsubsection{Collecting Data}
+In lieu of having a UI for users to train the system, a Google Form questionairre \ref{appendix:comfort_form} was created for
+friends and family to contribute datapoints. At the time of the midterm, about 50 datapoints have been collected
+\ref{appendix:comfort_responses}.
+
+If need be, supplemental data will be synthesized by covering the obvious cases. For example it's safe to say anybody
+would be hot in three coats on a 70-degree day, and that anybody would be cold in a T-shirt on a 5-degree day.
+
+Regardless of the data collected for the outfit-specific problem, GearSmarts capabilities can be estimated by evaluating
+it with published datasets.
+
+\subsubsection{Machine Learning RESTful API}
+\label{subsction:mlapi}
+In order to make Gear Smarts as extensible and usable as possible, the machine learning core was implemented in Node.js
+as a RESTful server, exposing two key routes describe below.
+
+\begin{description}
+    \item{\texttt{/v1/machinelearning/:namespace/train/:classification}} asdf
+    \item{\texttt{/v1/machinelearning/:namespace/classify}} asdf
+\end{description}
+
+Both routes take a \texttt{:namespace} argument, which is simply an extensibility mechanism allowing consumers to train
+many distinct datasets. For example, consumers training the \texttt{candy} namespace would not affect consumers training
+the \texttt{produce} namespace.
+
+Additionally, each route expects a \texttt{POST} body containing either an Array or a key/value Object of features to
+train/classify. An example interaction with a GearSmarts server is shown below, with a contrived example of training
+on the \texttt{XOR} function. The idea to use XOR comes from \cite{Github:nodesvm}.
+
+\begin{lstlisting}
+#
+# Train on XOR
+#
+
+# [0,0] => 0
+curl `http://localhost:8080/v1/ml/xor/train/0' \
+    -H `Content-Type: application/json' \
+    --data-binary `[0,0]'
+
+# [1,1] => 0
+curl `http://localhost:8080/v1/ml/xor/train/0' \
+    -H `Content-Type: application/json' \
+    --data-binary `[1,1]'
+
+# [0,1] => 1
+curl `http://localhost:8080/v1/ml/xor/train/1' \
+    -H `Content-Type: application/json' \
+    --data-binary `[0,1]'
+
+#[1,0] => 1
+curl `http://localhost:8080/v1/ml/xor/train/1' \
+    -H `Content-Type: application/json' \
+    --data-binary `[1,0]'
+
+
+#
+# Classify
+#
+
+# [1,0] => ?
+curl `http://localhost:8080/v1/ml/xor/classify' \
+    -H `Content-Type: application/json' \
+    --data-binary `[1,0]'
+# Server's response ==> "1"
+\end{lstlisting}
+
+The example code above aims to demonstrate how easy it is to interact with the GearSmarts API. This ease of use will
+help simplify the to-be-built UI application for interacting with GearSmarts. The current expected call syntax for
+training and classifying outfits based on weather and activity is shown below.
+
+\begin{lstlisting}
+# Train a comfort level (hot) on an
+#       activity, outfit, and temperature
+curl `localhost:8080/v1/ml/gear/train/hot'\
+    -H `Content-Type: application/json' \
+    --data-binary `{   \
+        "sport": "ski",     \
+        "snowpants": true,  \
+        "base": true,       \
+        "downCoat": true,   \
+        "shell": true,      \
+        "temp": 58.3,       \
+        "humidity": 0.10,   \
+        "pressure": 1
+    }'
+\end{lstlisting}
+
+The server will put these features into a dictionary of known features. Since SVMs are fast, we can just store all
+datapoints ever seen for the namespace, and re-train with each new incoming datapoint. The dictionary simply converts
+the key/value object into a tabular structure. An example of what the dictionary would look like after the above
+training datapoint and a few others is shown below.
+
+\begin{table}
+\label{table:classifications}
+    \begin{tabular}{lll}
+        \hline
+        \multicolumn{3}{c}{Classification} \\
+        \hline
+        0 & 1 & 2 \\
+        hot & ok & cold \\
+        \hline
+    \end{tabular}
+    \caption{The SVM prefers integer classifications, so store an Array of known classes, and use their index in the SVM}
+\end{table}
+
+\begin{table}
+\label{table:dictionary}
+    \begin{tabular}{lllllr}
+        \hline
+        \multicolumn{6}{c}{Trained Data} \\
+        \multicolumn{5}{c}{Features} & Class \\
+        \hline
+        sport   & snowpants & base  & downCoat & temp   \\
+        \hline
+        \hline
+        ski     & true      & true  & true      & 58.3  & 0 \\
+        iceFish & true      & true  & true      & 43.1  & 2 \\
+        hike    & false     & false & true      & 49.6  & 1 \\
+        \hline
+    \end{tabular}
+    \caption{The dataset is stored as a table with an Array of feature names and Array of Arrays of feature values}
+\end{table}
+
+
+\subsubsection{Machine Learning Methods}
+\label{section:mloptions}
+Existing articles should give insight into which technique is
+most appropriate for Gear Smarts. Some options are listed below:
+
+\begin{description}
+  \item{Support Vector Machine:} Non-linear classification using the ``kernel trick.'' A short-coming is solving for multiple
+  classes can add complexity, as a common technique is to use multiple binary SVM classifiers. While this can be worked with
+  for Gear Smarts, it has the potential to be limiting.
+  \item{kNN:} Can help to simplify a problem in the absence of a good model of the larger application
+  \item{Decision tree:} Again, this is a relatively simple implementation that replaces modeling with basic relationships
+  \item{Bayesian network:} Takes a statistical approach to modeling data
+  \item{Artificial Neural Network:} These can adapt to a huge variety of problems, and are interesting in that they emulate
+  human (and animal) learning. A major down-side is they can be complex and costly to implement.
+  \item{Others:} There are many many other machine learning techniques that could also be investigated.
+\end{description}
+
+\subsection{Problem Modeling}
+Before using a machine learning system, the problem needed to be modeled properly. It can be broken down into three
+fundamental parts, described below.
+
+\begin{description}
+  \item{Outfit:} Outfits can either be modeled individually or as a summation of individual articles (potentially introducing
+  a knapsack problem\footnote{The knapsack problem seeks to optimize a value by searching combinations of a set. In Gear Smarts,
+  we might represent an outfit with a KPI that should closely match a KPI produced by a function of the weather. Meanwhile, each
+  article of clothing in a wardrobe could have a KPI suggesting how warm it is. To properly match the knapsack problem, we might
+  introduce a mobility metric for each article.}).
+  Additionally, they can be represented categorically (e.g. vest or full-zip and
+  fleece, down, and cotton) or by derived characteristics (e.g. thermal retention, mobility, wind-resistance).
+  \item{Weather:} Weather should likely be characterized in terms of temperature, humidity, wind, pressure,
+  cloud cover, and precipitation.
+  \item{Comfort:} Intuitively, there are three basic comfort levels relevant to Gear Smart: too cold, comfortable, and too hot.
+\end{description}
+
+Although a KPI could be used, to make the system more extensible, GearSmarts will model the problem as a set of
+articles of clothing, along with a true/false value for each. The UI will submit a list of articles the user wore (or
+plans to wear) to the API, which maintains a dictionary (described above \ref{table:dictionary}) of known articles. The
+API then normalizes the provided articles against the dictionary, producing a key/value object where the values are
+simply \texttt{true} or \texttt{false} denoting if each is present.
+
+The weather will be queried through to-be-built routes in the GearSmarts API providing a key/value object of important
+weather attributes in exchange for the consumer-provided location and date. The resulting key/value object will be
+merged with the outfit features by the UI and provided to the machine learning routes when training and classifying.
+
+The comfort level will be selected from a static list of options (``hot,'' ``cold,'' and ``ok'') by the user when
+training the system. When the UI tries to make an outfit suggestion, it will search the available set of articles of
+clothing (a ``wardrobe'') combined with the known weather features, querying the machine learning \texttt{/classify}
+route to find a subset of the wardrobe with an ``ok'' classification.
+
+
+\subsection{User Interface}
+A simple way to enable user interaction would be to consume the machine learning system's RESTful API through a
+mobile app. The interface on the app would simply ask the user what their outfit was that day, and how comfortable
+they were.

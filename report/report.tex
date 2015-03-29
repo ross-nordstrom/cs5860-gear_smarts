@@ -1,7 +1,11 @@
 \documentclass{sig-alternate}
 
 \usepackage{graphicx}
+\usepackage{listings}
 
+% For appendix:
+\usepackage{pdfpages}
+\usepackage{fancyhdr}
 
 \usepackage{url}
 \usepackage{hyperref}
@@ -16,7 +20,7 @@
         \texttt{rnordstr@uccs.edu}
         \texttt{nordstrom.ross@gmail.com}
        }
-\date{February 11, 2015}
+\date{March 30, 2015}
 
 \maketitle
 
@@ -35,14 +39,15 @@ application for suggesting which layers to wear before going out to ski or snow 
 
 \input{motivation}
 \input{relatedwork}
-\input{proposeddesign}
+\input{design}
 \input{objectives}
 % \input{implementation}
 % \input{futurework}
 % \input{conclusion}
 
 \bibliography{citations}{}
-\bibliographystyle{plain}
+\bibliographystyle{acm}
+
+\input{appendix}
 
 \end{document}
-
