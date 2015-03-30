@@ -10,6 +10,8 @@ branches:
   - master
 
 before_deploy:
+ - git config --global user.email "nordstrom.ross+gearsmarts@gmail.com"
+ - git config --global user.name "Gear Smarts"
  - git add -f doc coverage plato
  - git commit -m "Build updating coverage, code complexity, and docs for Deployment"
 deploy:
