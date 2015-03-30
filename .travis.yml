@@ -8,15 +8,14 @@ sudo: false
 branches:
   only:
   - master
-
 before_deploy:
- - git config --global user.email "nordstrom.ross+gearsmarts@gmail.com"
- - git config --global user.name "Gear Smarts"
- - git add -f doc coverage plato
- - git commit -m "Build updating coverage, code complexity, and docs for Deployment"
+- git config --global user.email "nordstrom.ross+gearsmarts@gmail.com"
+- git config --global user.name "Gear Smarts"
+- git add -f doc coverage plato
+- git commit -m "Build updating coverage, code complexity, and docs for Deployment"
 deploy:
   provider: heroku
   app: gearsmarts
   skip_cleanup: true
   api_key:
-    secure: JWanO/oZC5FQfbWVo892M0J0J/Rg5mimBXQs/6mdmgvzdhJXD1lr/gwINjzt8NYKfVgzhMJQ8j25Qkj8L+sLtk0KV7MmwlzZ07NgwmFmyUXvaQQRA7ioRfC0P2brJkFlhTr2XUnkN2gL/2pjjgAlYWhxtK9quW38YN68P7Fuxuo=
+    secure: pXeXqcCTu04qpBbDSNWHsYMFUwPzskugFW2ywifG7MWj7hkrMkQhC+QuVT77DphM8FyoUTdvN4OGaVy7m9xbe8HBEyjqNWh8LlqQBUnJjnxNyPwFaxTucuAJHzcdwEXOyK8Bilca8R6HJMMahe6UlgpzJr7Gy1XgD6QnMvP8gew=
