@@ -36,3 +36,5 @@ node_modules
 # IntelliJ Project settings
 /.idea
 
+# Tmp files
+*.swp
