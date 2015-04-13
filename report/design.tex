@@ -6,7 +6,7 @@ a query system and optimistically a mobile app for training the system. Addition
 engine will be implemented. In this section, the envisioned parts of the system are presented.
 
 \subsection{Learning Core}
-Firstly, Support Vector Machine (SVM) was chosen as the machine learning method for implementing an outfit predictor.
+Firstly, Support Vector Machine (SVM) \cite{SVM} was chosen as the machine learning method for implementing an outfit predictor.
 Justification for this choice is provided in \ref{section:mlsvm}. Some other methods which were considered are
 denoted in \ref{section:mloptions}. The learning core was implemented as a Node.js RESTful API to make it easy for a
 Mobile App or Web UI to consume on behalf of users of Gear Smarts. The API is described below in \ref{section:mlapi}.
@@ -29,9 +29,10 @@ Decision Trees. Support vector machines offer an opportunity to learn a new meth
 other methods.
 
 \subsubsection{Collecting Data}
-In lieu of having a UI for users to train the system, a Google Form questionairre \ref{appendix:comfort_form} was created for
+In lieu of having a UI for users to train the system, a Google Form questionairre (included in Appendix
+\ref{appendix:comfort_form}) was created for
 friends and family to contribute datapoints. At the time of the midterm, about 50 datapoints have been collected
-\ref{appendix:comfort_responses}.
+(Appendix \ref{appendix:comfort_responses}).
 
 If need be, supplemental data will be synthesized by covering the obvious cases. For example it's safe to say anybody
 would be hot in three coats on a 70-degree day, and that anybody would be cold in a T-shirt on a 5-degree day.
@@ -40,7 +41,7 @@ Regardless of the data collected for the outfit-specific problem, GearSmarts cap
 it with published datasets.
 
 \subsubsection{Machine Learning RESTful API}
-\label{subsction:mlapi}
+\label{section:mlapi}
 In order to make Gear Smarts as extensible and usable as possible, the machine learning core was implemented in Node.js
 as a RESTful server, exposing two key routes describe below.
 
@@ -54,71 +55,26 @@ many distinct datasets. For example, consumers training the \texttt{candy} names
 the \texttt{produce} namespace.
 
 Additionally, each route expects a \texttt{POST} body containing either an Array or a key/value Object of features to
-train/classify. An example interaction with a GearSmarts server is shown below, with a contrived example of training
-on the \texttt{XOR} function. The idea to use XOR comes from \cite{Github:nodesvm}.
+train/classify. Interaction with a GearSmarts server is as simple as making an HTTP POST. An example of an Object
+training structure is shown below.
 
 \begin{lstlisting}
-#
-# Train on XOR
-#
-
-# [0,0] => 0
-curl `http://localhost:8080/v1/ml/xor/train/0' \
-    -H `Content-Type: application/json' \
-    --data-binary `[0,0]'
-
-# [1,1] => 0
-curl `http://localhost:8080/v1/ml/xor/train/0' \
-    -H `Content-Type: application/json' \
-    --data-binary `[1,1]'
-
-# [0,1] => 1
-curl `http://localhost:8080/v1/ml/xor/train/1' \
-    -H `Content-Type: application/json' \
-    --data-binary `[0,1]'
-
-#[1,0] => 1
-curl `http://localhost:8080/v1/ml/xor/train/1' \
-    -H `Content-Type: application/json' \
-    --data-binary `[1,0]'
-
-
-#
-# Classify
-#
-
-# [1,0] => ?
-curl `http://localhost:8080/v1/ml/xor/classify' \
-    -H `Content-Type: application/json' \
-    --data-binary `[1,0]'
-# Server's response ==> "1"
+{
+    "sport": "ski",
+    "snowpants": true,
+    "base": true,
+    "downCoat": true,
+    "shell": true,
+    "temp": 58.3,
+    "humidity": 0.10,
+    "pressure": 1
+}
 \end{lstlisting}
 
-The example code above aims to demonstrate how easy it is to interact with the GearSmarts API. This ease of use will
-help simplify the to-be-built UI application for interacting with GearSmarts. The current expected call syntax for
-training and classifying outfits based on weather and activity is shown below.
-
-\begin{lstlisting}
-# Train a comfort level (hot) on an
-#       activity, outfit, and temperature
-curl `localhost:8080/v1/ml/gear/train/hot'\
-    -H `Content-Type: application/json' \
-    --data-binary `{   \
-        "sport": "ski",     \
-        "snowpants": true,  \
-        "base": true,       \
-        "downCoat": true,   \
-        "shell": true,      \
-        "temp": 58.3,       \
-        "humidity": 0.10,   \
-        "pressure": 1
-    }'
-\end{lstlisting}
-
-The server will put these features into a dictionary of known features. Since SVMs are fast, we can just store all
-datapoints ever seen for the namespace, and re-train with each new incoming datapoint. The dictionary simply converts
-the key/value object into a tabular structure. An example of what the dictionary would look like after the above
-training datapoint and a few others is shown below.
+In order to normalize the dataset, the server will put features into a dictionary of known features. Since SVMs are
+fast, we can just store all datapoints ever seen for the namespace, and re-train with each new incoming datapoint.
+The dictionary simply converts the key/value object into a tabular structure. An example of what the dictionary would
+look like after the above training datapoint and a few others is shown below.
 
 \begin{table}
 \label{table:classifications}
@@ -158,13 +114,13 @@ Existing articles should give insight into which technique is
 most appropriate for Gear Smarts. Some options are listed below:
 
 \begin{description}
-  \item{Support Vector Machine:} Non-linear classification using the ``kernel trick.'' A short-coming is solving for multiple
+  \item{Support Vector Machine \cite{SVM}:} Non-linear classification using the ``kernel trick.'' A short-coming is solving for multiple
   classes can add complexity, as a common technique is to use multiple binary SVM classifiers. While this can be worked with
   for Gear Smarts, it has the potential to be limiting.
-  \item{kNN:} Can help to simplify a problem in the absence of a good model of the larger application
-  \item{Decision tree:} Again, this is a relatively simple implementation that replaces modeling with basic relationships
-  \item{Bayesian network:} Takes a statistical approach to modeling data
-  \item{Artificial Neural Network:} These can adapt to a huge variety of problems, and are interesting in that they emulate
+  \item{kNN \cite{KNN}:} Can help to simplify a problem in the absence of a good model of the larger application
+  \item{Decision tree \cite{DecisionTree}:} Again, this is a relatively simple implementation that replaces modeling with basic relationships
+  \item{Bayesian network \cite{BayesianNetwork}:} Takes a statistical approach to modeling data
+  \item{Artificial Neural Network \cite{ANN}:} These can adapt to a huge variety of problems, and are interesting in that they emulate
   human (and animal) learning. A major down-side is they can be complex and costly to implement.
   \item{Others:} There are many many other machine learning techniques that could also be investigated.
 \end{description}
