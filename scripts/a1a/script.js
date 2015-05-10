@@ -131,11 +131,12 @@ function testDataset(posClass, callback) {
             if (e) {
                 return callback(e);
             }
+
             /*
              * Expect results to look like:
              * [ 'TP', 'FN', 'FN', 'FP', 'TN', ... ]
              */
-            var c = _.extend({TP: 0, TN: 0, FP: 0, FN: 0}, _.countBy(r, _.identity));
+            var c = _.extend({TP: 0, TN: 0, FP: 0, FN: 0}, _.countBy(_.compact(r), _.identity));
 
             // http://webdocs.cs.ualberta.ca/~eisner/measures.html
             var precision = c.TP / (c.TP + c.FP);       // The percentage of positive predictions that are correct.
@@ -190,6 +191,9 @@ function testRow(posClass, row, callback) {
     var compareClass = function (err, res) {
         if (err) {
             return callback(err);
+        }
+        if (!res) {
+            return callback(null, null);
         }
         var correct = res.toString() === row[1].toString();
         var predictedPos = res.toString() === posClass.toString();
