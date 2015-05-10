@@ -25,7 +25,7 @@
     "whats-new": "git list-diff origin/master",
     "promote-rc": "git checkout rc && git pull origin rc && git branch -d master && git checkout -b master && git push -u origin master -f",
     "promote": "git branch -d master && git checkout -b master && git push -u origin master -f",
-    "document": "jsdoc -P package.json -r -d ./doc/ -R ./README.md ./lib/ 2> /dev/null || true",
+    "document": "jsdoc -P package.json -r -d ./doc/ -R ./README.md ./lib/ ./scripts/ 2> /dev/null || true",
     "autodoc": "nodemon --watch lib --exec \"npm\" run document"
   },
   "dependencies": {
