@@ -145,7 +145,7 @@ describe('MachineLearning/Svm', function () {
                     return Svm.train(xorSvm, 'xor2', '0', [0, 0], function (err, res) {
                         expect(err).to.not.be.ok();
                         expect(res).to.eql([
-                            [[0, 0], 0]
+                            [[0, 0], '0']
                         ]);
                         return taskCb();
                     });
@@ -154,8 +154,8 @@ describe('MachineLearning/Svm', function () {
                     return Svm.train(xorSvm, 'xor2', '1', [0, 1], function (err, res) {
                         expect(err).to.not.be.ok();
                         expect(res).to.eql([
-                            [[0, 0], 0],
-                            [[0, 1], 1]
+                            [[0, 0], '0'],
+                            [[0, 1], '1']
                         ]);
                         return taskCb();
                     });
@@ -164,9 +164,9 @@ describe('MachineLearning/Svm', function () {
                     return Svm.train(xorSvm, 'xor2', '1', [1, 0], function (err, res) {
                         expect(err).to.not.be.ok();
                         expect(res).to.eql([
-                            [[0, 0], 0],
-                            [[0, 1], 1],
-                            [[1, 0], 1]
+                            [[0, 0], '0'],
+                            [[0, 1], '1'],
+                            [[1, 0], '1']
                         ]);
                         return taskCb();
                     });
@@ -175,10 +175,10 @@ describe('MachineLearning/Svm', function () {
                     return Svm.train(xorSvm, 'xor2', '0', [1, 1], function (err, res) {
                         expect(err).to.not.be.ok();
                         expect(res).to.eql([
-                            [[0, 0], 0],
-                            [[0, 1], 1],
-                            [[1, 0], 1],
-                            [[1, 1], 0]
+                            [[0, 0], '0'],
+                            [[0, 1], '1'],
+                            [[1, 0], '1'],
+                            [[1, 1], '0']
                         ]);
                         return taskCb();
                     });
@@ -192,7 +192,7 @@ describe('MachineLearning/Svm', function () {
 
             return async.series([
                 function (taskCb) {
-                    return Svm.train(xorSvm, 'xor2', 'false', ['false', 'false'], function (err, res) {
+                    return Svm.train(xorSvm, 'xor3', 'false', ['false', 'false'], function (err, res) {
                         expect(err).to.not.be.ok();
                         expect(res).to.eql([
                             [['false', 'false'], 'false']
@@ -201,7 +201,7 @@ describe('MachineLearning/Svm', function () {
                     });
                 },
                 function (taskCb) {
-                    return Svm.train(xorSvm, 'xor2', 'true', ['false', 'true'], function (err, res) {
+                    return Svm.train(xorSvm, 'xor3', 'true', ['false', 'true'], function (err, res) {
                         expect(err).to.not.be.ok();
                         expect(res).to.eql([
                             [['false', 'false'], 'false'],
@@ -211,7 +211,7 @@ describe('MachineLearning/Svm', function () {
                     });
                 },
                 function (taskCb) {
-                    return Svm.train(xorSvm, 'xor2', 'true', ['true', 'false'], function (err, res) {
+                    return Svm.train(xorSvm, 'xor3', 'true', ['true', 'false'], function (err, res) {
                         expect(err).to.not.be.ok();
                         expect(res).to.eql([
                             [['false', 'false'], 'false'],
@@ -222,7 +222,7 @@ describe('MachineLearning/Svm', function () {
                     });
                 },
                 function (taskCb) {
-                    return Svm.train(xorSvm, 'xor2', 'false', ['true', 'true'], function (err, res) {
+                    return Svm.train(xorSvm, 'xor3', 'false', ['true', 'true'], function (err, res) {
                         expect(err).to.not.be.ok();
                         expect(res).to.eql([
                             [['false', 'false'], 'false'],
@@ -250,7 +250,7 @@ describe('MachineLearning/Svm', function () {
 
         before(function (cb) {
             return async.map(xor, function (row, rowCb) {
-                return Svm.train(xorSvm, 'xor', row[1], {a: row[0][0], b: row[0][1]}, rowCb);
+                return Svm.train(xorSvm, 'xor', row[1], row[0], rowCb);
             }, cb);
         });
 
@@ -311,8 +311,15 @@ describe('MachineLearning/Svm', function () {
             return done();
         });
         it('should append if features not present', function (done) {
-            var row = [['red', 'fish'], 'drseuss'];
-            expect(FUT(rows, row)).to.eql(rows.concat(row));
+            var row = [[0, 0], 0];
+            expect(FUT([], row)).to.eql([row]);
+
+            row = [['red', 'fish'], 'drseuss'];
+            expect(FUT(rows, row)).to.eql([
+                [['one', 'fish'], 'drseuss'],
+                [['foo', 'bar'], 'cs'],
+                [['red', 'fish'], 'drseuss'] // New row
+            ]);
             return done();
         });
         it('should update class if feature present', function (done) {
