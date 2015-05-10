@@ -18,12 +18,12 @@
  *  var x= require('./scripts/a1a/script.js'); x.getTrainingData(x.logger)
  *  //==> Prints out the first NUM_ROWS rows of training data
  *
- *  // Manually train XOR
+ *  // Smoke test using XOR
  *  var x= require('./scripts/a1a/script.js');
- *  x.trainRow([[0,0], 0]); x.trainRow([[1,1], 0]);
- *  x.trainRow([[0,1], 1]); x.trainRow([[1,0], 1]);
- *  // Then verify:
- *  x.dump(x.logger);
+ *  var xor = [ [[0,0],0], [[0,1],1], [[1,0],1], [[1,1],0] ];
+ *  x.trainDataset(x.logger)(null, xor);
+ *  // Then test
+ *  x.testDataset(1, x.logger)(null, xor);
  */
 
 /*global exports, process, require, exports */
@@ -33,7 +33,7 @@ var NAMESPACE = 'test_a1a';
 var URL = 'http://localhost:8080/v1/ml/' + NAMESPACE;
 var TRAIN_FILE = 'train.txt';
 var TEST_FILE = 'test.txt';
-var NUM_ROWS = 3;
+var NUM_ROWS = 10;
 var MAX_CALLS = 10;
 
 var TRAIN_URL = [URL, 'train'].join('/');
@@ -50,25 +50,30 @@ var request = require('superagent');
  * Train the ML API
  **/
 
+function train(callback) {
+    return getTrainingData(trainDataset(callback));
+}
+
 /**
  * Train the API on a dataset
- * @param {array[]} dataset
- * @param {object} [query]
  * @param {function} callback
  * @return {*}
  */
-function train(dataset, query, callback) {
-    if (_.isFunction(query)) {
-        callback = query;
-        query = undefined;
-    }
-    if (!_.isArray(dataset)) {
-        return callback(new Error('Expecting dataset to be array of data rows'));
-    }
+function trainDataset(callback) {
+    return function (err, dataset) {
+        if (err) {
+            return callback(err);
+        }
+        if (!_.isArray(dataset)) {
+            return callback(new Error('Expecting dataset to be array of data rows'));
+        }
 
-    return async.mapLimit(dataset, MAX_CALLS, trainRow, function (e, r) {
-        return e ? callback(e) : dump(callback);
-    });
+        console.log("Train " + dataset.length + " rows...");
+        return async.mapLimit(dataset, MAX_CALLS, trainRow/*(row, callback)*/, function (e) {
+            console.log("Done training.\n");
+            return e ? callback(e) : dump(callback);
+        });
+    };
 }
 
 
@@ -76,6 +81,55 @@ function train(dataset, query, callback) {
  * Test the ML API
  **/
 
+function test(callback) {
+    return getTestingData(testDataset('+1', callback));
+}
+
+/**
+ * Test the API on a dataset
+ * @param {string|number} posClass  - Which class to consider positive
+ * @param {function} callback
+ * @return {*}
+ */
+function testDataset(posClass, callback) {
+    return function (err, dataset) {
+        if (err) {
+            return callback(err);
+        }
+        if (!_.isArray(dataset)) {
+            return callback(new Error('Expecting dataset to be array of data rows'));
+        }
+
+        console.log("Test " + dataset.length + " rows...");
+        return async.mapLimit(dataset, MAX_CALLS, testRow.bind(null, posClass/*, row, callback */), function (e, r) {
+            console.log("Done testing.\n");
+
+            if (e) {
+                return callback(e);
+            }
+            /*
+             * Expect results to look like:
+             * [ 'TP', 'FN', 'FN', 'FP', 'TN', ... ]
+             */
+            var c = _.extend({TP: 0, TN: 0, FP: 0, FN: 0}, _.countBy(r, _.identity));
+
+            // http://webdocs.cs.ualberta.ca/~eisner/measures.html
+            var precision = c.TP / (c.TP + c.FP);       // The percentage of positive predictions that are correct.
+            var accuracy = (c.TP + c.TN) / r.length;    // The percentage of predictions that are correct.
+            var recall = c.TP / (c.TP + c.FN);          // The percentage of positive labeled instances that were predicted as positive.
+            var specificity = c.TN / (c.TN + c.FP);     // The percentage of negative labeled instances that were predicted as negative.
+
+            return callback(null, {
+                count: r.length,
+                raw: c,
+                precision: precision,
+                accuracy: accuracy,
+                recall: recall,
+                specificity: specificity
+            });
+        });
+    };
+}
 
 /***********************************************************************************************************************
  * Helpers
@@ -84,25 +138,49 @@ function train(dataset, query, callback) {
 /**
  * Train the API on a feature/class row
  * @param {array} row           - [ [f1,f2,...,fn], cls ]
- * @param {object} [query]
  * @param {function} callback
  */
-function trainRow(row, query, callback) {
-    if (_.isFunction(query)) {
-        callback = query;
-        query = undefined;
-    }
+function trainRow(row, callback) {
     if (!_.isArray(row) || _.size(row) !== 2) {
         return callback(new Error('Expecting row to look like: [ [f1,f2,...,fn], cls ]'));
     }
     var url = [TRAIN_URL, row[1]].join('/');
 
     return request.post(url)
-        .send(_.extend({}, query, {features: row[0]}))
+        .send({features: row[0]})
         .set('Accept', 'application/json')
         .end(resHandler(callback))
         .url;
 }
+/**
+ * Test the API on a feature/class row. Assumes there are only 2 classes
+ * @param {string|number} posClass  - Which class to consider positive
+ * @param {array} row           - [ [f1,f2,...,fn], cls ]
+ * @param {function} callback
+ */
+function testRow(posClass, row, callback) {
+    if (_.size(row) !== 2) {
+        return callback(new Error('Expecting row to look like: [ [f1,f2,...,fn], cls ]'));
+    }
+
+    var compareClass = function (err, res) {
+        if (err) {
+            return callback(err);
+        }
+        var correct = res.toString() === row[1].toString();
+        var predictedPos = res.toString() === posClass.toString();
+
+        var result = [correct ? 'T' : 'F', predictedPos ? 'P' : 'N'].join('');
+        return callback(null, result);
+    };
+
+    return request.post(CLASSIFY_URL)
+        .send({features: row[0]})
+        .set('Accept', 'application/json')
+        .end(resHandler(compareClass))
+        .url;
+}
+
 /**
  * Retrieve the trained dataset
  */
@@ -180,11 +258,15 @@ function getData(filename, callback) {
 
 // Train
 exports.train = train;
+exports.trainDataset = trainDataset;
 
 // Test
+exports.test = test;
+exports.testDataset = testDataset;
 
 // Helpers
 exports.trainRow = trainRow;
+exports.testRow = testRow;
 exports.dump = dump;
 exports.getTrainingData = getTrainingData;
 exports.getTestingData = getTestingData;
