@@ -64,6 +64,11 @@ var request = require('superagent');
  * Train the ML API
  **/
 
+/**
+ * Train on the default dataset
+ * @param callback
+ * @return {*}
+ */
 function train(callback) {
     return getTrainingData(trainDataset(callback));
 }
@@ -95,6 +100,11 @@ function trainDataset(callback) {
  * Test the ML API
  **/
 
+/**
+ * Test on the default dataset
+ * @param callback
+ * @return {*}
+ */
 function test(callback) {
     return getTestingData(testDataset('+1', callback));
 }
