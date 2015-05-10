@@ -14,16 +14,30 @@
  *
  *  @example
  *  $ node
+ *  //
  *  // Print out training data
+ *  //
  *  var x= require('./scripts/a1a/script.js'); x.getTrainingData(x.logger)
  *  //==> Prints out the first NUM_ROWS rows of training data
  *
+ *  //
  *  // Smoke test using XOR
+ *  //
  *  var x= require('./scripts/a1a/script.js');
  *  var xor = [ [[0,0],0], [[0,1],1], [[1,0],1], [[1,1],0] ];
  *  x.trainDataset(x.logger)(null, xor);
+ *
  *  // Then test
  *  x.testDataset(1, x.logger)(null, xor);
+ *  //==> Output:
+ *  //  {
+ *  //    count: 4,
+ *  //    raw: { TP: 2, TN: 2, FP: 0, FN: 0 },
+ *  //    precision: 1,
+ *  //    accuracy: 1,
+ *  //    recall: 1,
+ *  //    specificity: 1
+ *  //  }
  */
 
 /*global exports, process, require, exports */
