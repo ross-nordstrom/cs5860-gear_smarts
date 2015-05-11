@@ -1,29 +1,22 @@
 /**
- * http://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/binary.html > a1a
- * @module GearSmarts/Tests/a1a
- * @memberof GearSmarts/Tests
- * @description Tests the a1a data set against the GearSmarts API. Assumes API is running on localhost:8080
- *
- *  Preprocessing:  The original Adult data set has 14 features, among which six are continuous and eight are categorical. In this data set, continuous features are discretized into quantiles, and each quantile is represented by a binary feature. Also, a categorical feature with m categories is converted to m binary features. Details on how each feature is converted can be found in the beginning of each file from this page. [JP98a]
- *  # of classes: 2
- *  # of data: 1,60 5 / 30,956 (testing)
- *  # of features:  123 / 123 (testing)
- *  Files:
- *  a1a
- *  a1a.t (testing)
+ * http://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/binary.html
+ * @module GearSmarts/Eval
+ * @memberof GearSmarts
+ * @description Tests the data sets against the GearSmarts API. Assumes API is running on localhost:8080
  *
  *  @example
  *  $ node
  *  //
  *  // Print out training data
  *  //
- *  var x= require('./scripts/a1a/script.js'); x.getTrainingData(x.logger)
+ *  var x= require('./eval/main.js'); x.getTrainingData(x.logger)
  *  //==> Prints out the first NUM_ROWS rows of training data
+ *
  *
  *  //
  *  // Smoke test using XOR
  *  //
- *  var x= require('./scripts/a1a/script.js');
+ *  var x= require('./eval/main.js');
  *  var xor = [ [[0,0],0], [[0,1],1], [[1,0],1], [[1,1],0] ];
  *  x.trainDataset(x.logger)(null, xor);
  *
@@ -33,11 +26,30 @@
  *  //  {
  *  //    count: 4,
  *  //    raw: { TP: 2, TN: 2, FP: 0, FN: 0 },
- *  //    precision: 1,
  *  //    accuracy: 1,
+ *  //    precision: 1,
  *  //    recall: 1,
  *  //    specificity: 1
  *  //  }
+ *
+ *
+ *  //
+ *  // Train on the actual data
+ *  //
+ *  var x = require('./eval/main.js');
+ *  x.train('a1a', x.logger);
+ *  // Wait a while for it to complete...
+ *  x.test('a1a', x.logger);
+ *  // Wait more...
+ *  //==> Output:
+ *  {
+ *    count: 30957,
+ *    raw: { TP: 318, TN: 21556, FP: 1954, FN: 7129 },
+ *    accuracy: 0.7065930161191329,
+ *    precision: 0.13996478873239437,
+ *    recall: 0.04270175909762321,
+ *    specificity: 0.9168864313058273
+ *  }
  */
 
 /*global exports, process, require, exports */
@@ -49,12 +61,13 @@ var TRAIN_FILE = 'train.txt';
 var TEST_FILE = 'test.txt';
 var NUM_ROWS = 10;
 var MAX_CALLS = 10;
+var PRECISION = 1000; // How accurate should results be?
 
 var TRAIN_URL = [URL, 'train'].join('/');
 var CLASSIFY_URL = [URL, 'classify'].join('/');
 
 
-var util = require('../../lib/utils/main');
+var util = require('../lib/utils/main');
 var _ = util._;
 var fs = require('fs');
 var async = require('async');
@@ -139,18 +152,18 @@ function testDataset(posClass, callback) {
             var c = _.extend({TP: 0, TN: 0, FP: 0, FN: 0}, _.countBy(_.compact(r), _.identity));
 
             // http://webdocs.cs.ualberta.ca/~eisner/measures.html
-            var precision = c.TP / (c.TP + c.FP);       // The percentage of positive predictions that are correct.
             var accuracy = (c.TP + c.TN) / r.length;    // The percentage of predictions that are correct.
+            var precision = c.TP / (c.TP + c.FP);       // The percentage of positive predictions that are correct.
             var recall = c.TP / (c.TP + c.FN);          // The percentage of positive labeled instances that were predicted as positive.
             var specificity = c.TN / (c.TN + c.FP);     // The percentage of negative labeled instances that were predicted as negative.
 
             return callback(null, {
                 count: r.length,
                 raw: c,
-                precision: precision,
-                accuracy: accuracy,
-                recall: recall,
-                specificity: specificity
+                accuracy: Math.round(PRECISION * accuracy) / PRECISION,
+                precision: Math.round(PRECISION * precision) / PRECISION,
+                recall: Math.round(PRECISION * recall) / PRECISION,
+                specificity: Math.round(PRECISION * specificity) / PRECISION
             });
         });
     };
