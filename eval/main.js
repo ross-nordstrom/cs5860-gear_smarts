@@ -43,12 +43,12 @@
  *  // Wait more...
  *  //==> Output:
  *  {
- *    count: 30957,
- *    raw: { TP: 318, TN: 21556, FP: 1954, FN: 7129 },
- *    accuracy: 0.7065930161191329,
- *    precision: 0.13996478873239437,
- *    recall: 0.04270175909762321,
- *    specificity: 0.9168864313058273
+ *    count: 30956,
+ *    raw: { TP: 318, TN: 21556, FP: 1954, FN: 7128 },
+ *    accuracy: 0.707,
+ *    precision: 0.14,
+ *    recall: 0.043,
+ *    specificity: 0.917
  *  }
  */
 
@@ -103,8 +103,8 @@ function trainDataset(suite, callback) {
         }
 
         console.log("Train " + dataset.length + " rows...");
-        return async.mapLimit(dataset, MAX_CALLS, trainRow.bind(null, suite/*, row, callback*/), function (e) {
-            console.log("Done training. " + (e ? 'Error :(' : 'Dumping dataset...') + "\n");
+        return async.mapLimit(dataset, MAX_CALLS, trainRow.bind(null, suite/*, row, callback*/), function (e, r) {
+            console.log("Done training " + _.size(r) + " rows. " + (e ? 'Error :(' : 'Dumping dataset...') + "\n");
             return e ? callback(e) : dump(suite, callback);
         });
     };
@@ -163,7 +163,7 @@ function testDataset(suite, posClass, callback) {
             var specificity = c.TN / (c.TN + c.FP);     // The percentage of negative labeled instances that were predicted as negative.
 
             return callback(null, {
-                count: r.length,
+                count: _.compact(r).length,
                 raw: c,
                 accuracy: Math.round(PRECISION * accuracy) / PRECISION,
                 precision: Math.round(PRECISION * precision) / PRECISION,
@@ -178,6 +178,9 @@ function testDataset(suite, posClass, callback) {
  * Helpers
  **/
 
+var indicators = ['|', '/', '-', '\\'];
+var ind = 0;
+
 /**
  * Train the API on a feature/class row
  * @param {string} suite    - Which test suite to run. E.g. 'a1a', 'a2a', etc...
@@ -185,11 +188,17 @@ function testDataset(suite, posClass, callback) {
  * @param {function} callback
  */
 function trainRow(suite, row, callback) {
-    if (!_.isArray(row) || _.size(row) !== 2) {
+    if (!_.isNonEmptyString(suite) || _.size(row) !== 2) {
+        console.log("\nBad suite/row: ", {suite: suite, row: row});
         return callback(new Error('Expecting row to look like: [ [f1,f2,...,fn], cls ]'));
     }
+    if (!_.isNonEmptyString(row[1])) {
+        console.log("\nSkipping bad row: ", row);
+        return callback(null, null);
+    }
     var url = [[URL, suite].join('_'), TRAIN_PATH, row[1]].join('/');
-
+    process.stdout.write(indicators[ind] + " Train url: " + url + "\r");
+    ind = (ind + 1) % _.size(indicators);
     return request.post(url)
         .send({features: row[0]})
         .set('Accept', 'application/json')
@@ -204,8 +213,13 @@ function trainRow(suite, row, callback) {
  * @param {function} callback
  */
 function testRow(suite, posClass, row, callback) {
-    if (_.size(row) !== 2) {
+    if (!_.isNonEmptyString(suite) || _.size(row) !== 2) {
+        console.log("\nBad suite/row: ", {suite: suite, row: row});
         return callback(new Error('Expecting row to look like: [ [f1,f2,...,fn], cls ]'));
+    }
+    if (!_.isNonEmptyString(row[1])) {
+        console.log("\nSkipping bad row: ", row);
+        return callback(null, null);
     }
 
     var compareClass = function (err, res) {
@@ -222,8 +236,9 @@ function testRow(suite, posClass, row, callback) {
         return callback(null, result);
     };
 
-    var url = [[URL, suite].join('_'), CLASSIFY_PATH, row[1]].join('/');
-
+    var url = [[URL, suite].join('_'), CLASSIFY_PATH].join('/');
+    process.stdout.write(indicators[ind] + " Classify url: " + url + "\r");
+    ind = (ind + 1) % _.size(indicators);
     return request.post(url)
         .send({features: row[0]})
         .set('Accept', 'application/json')
@@ -245,18 +260,18 @@ function dump(suite, callback) {
 function resHandler(callback) {
     if (!_.isFunction(callback)) {
         callback = function () {
-            console.log("Got response.");
+            console.log("\nGot response.");
         };
     }
     return function (err, res) {
         if (err) {
-            console.log("resHandler error: ", err);
+            console.log("\nresHandler error: ", err);
             return callback(err);
         }
 
         var retVal = [null, res.body];
         if (!res.ok) {
-            console.log("resHandler not ok res: ", {ok: res.ok, status: res.status, body: res.body});
+            console.log("\nresHandler not ok res: ", {ok: res.ok, status: res.status, body: res.body, url: res.url});
         }
         return callback.apply(null, res.ok ? retVal : retVal.reverse());
     };

@@ -18,25 +18,43 @@ http://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/binary.html#a1a
 Ran with commit 147dd5d (10-MAY-2015) and got the following:
 
 ```js
-> x.train(x.logger)
+>  x.train('a1a', x.logger);
 undefined
 > Train 1606 rows...
-Done training.
+Skipping bad row:  [ [], '' ]:8080/v1/ml/evalApi_a1a/train/-1
+Done training 1606 rows. Dumping dataset...
 
 Callback invoked:
-ERR?  {}
-RES?  undefined
-> x.test(x.logger)
+ERR?  null
+RES?  [ [ [ '3',
+      '11',
+      '14',
+      '19',
+      '39',
+      '42',
+      '55',
+      '64',
+      '67',
+      '73',
+      '75',
+      '76',
+      '80',
+      '83' ],
+    '-1' ],
+  [ ... ]
+  ]
+>  x.test('a1a', '+1', x.logger);
 undefined
 > Test 30957 rows...
+Skipping bad row:  [ [], '' ]ost:8080/v1/ml/evalApi_a1a/classify
 Done testing.
 
 Callback invoked:
 ERR?  null
-RES?  { count: 30957,
-  raw: { TP: 318, TN: 21556, FP: 1954, FN: 7129 },
-  precision: 0.13996478873239437,
-  accuracy: 0.7065930161191329,
-  recall: 0.04270175909762321,
-  specificity: 0.9168864313058273 }
+RES?  { count: 30956,
+  raw: { TP: 318, TN: 21556, FP: 1954, FN: 7128 },
+  accuracy: 0.707,
+  precision: 0.14,
+  recall: 0.043,
+  specificity: 0.917 }
 ```
