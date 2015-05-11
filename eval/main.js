@@ -39,7 +39,7 @@
  *  var x = require('./eval/main.js');
  *  x.train('a1a', x.logger);
  *  // Wait a while for it to complete...
- *  x.test('a1a', x.logger);
+ *  x.test('a1a', '+1', x.logger);
  *  // Wait more...
  *  //==> Output:
  *  {
@@ -103,9 +103,9 @@ function trainDataset(suite, callback) {
         }
 
         console.log("Train " + dataset.length + " rows...");
-        return async.mapLimit(dataset, MAX_CALLS, trainRow.bing(null, suite/*, row, callback)*/, function (e) {
-            console.log("Done training.\n");
-            return e ? callback(e) : dump(callback);
+        return async.mapLimit(dataset, MAX_CALLS, trainRow.bind(null, suite/*, row, callback*/), function (e) {
+            console.log("Done training. " + (e ? 'Error :(' : 'Dumping dataset...') + "\n");
+            return e ? callback(e) : dump(suite, callback);
         });
     };
 }
@@ -250,10 +250,14 @@ function resHandler(callback) {
     }
     return function (err, res) {
         if (err) {
+            console.log("resHandler error: ", err);
             return callback(err);
         }
 
         var retVal = [null, res.body];
+        if (!res.ok) {
+            console.log("resHandler not ok res: ", {ok: res.ok, status: res.status, body: res.body});
+        }
         return callback.apply(null, res.ok ? retVal : retVal.reverse());
     };
 }
