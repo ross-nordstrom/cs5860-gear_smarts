@@ -84,15 +84,16 @@ var request = require('superagent');
  * @return {*}
  */
 function train(suite, callback) {
-    return getTrainingData(suite, trainDataset(callback));
+    return getTrainingData(suite, trainDataset(suite, callback));
 }
 
 /**
  * Train the API on a dataset
+ * @param {string} suite    - Which test suite to run. E.g. 'a1a', 'a2a', etc...
  * @param {function} callback
  * @return {*}
  */
-function trainDataset(callback) {
+function trainDataset(suite, callback) {
     return function (err, dataset) {
         if (err) {
             return callback(err);
@@ -102,7 +103,7 @@ function trainDataset(callback) {
         }
 
         console.log("Train " + dataset.length + " rows...");
-        return async.mapLimit(dataset, MAX_CALLS, trainRow/*(row, callback)*/, function (e) {
+        return async.mapLimit(dataset, MAX_CALLS, trainRow.bing(null, suite/*, row, callback)*/, function (e) {
             console.log("Done training.\n");
             return e ? callback(e) : dump(callback);
         });
@@ -122,16 +123,17 @@ function trainDataset(callback) {
  * @return {*}
  */
 function test(suite, posClass, callback) {
-    return getTestingData(suite, testDataset(posClass, callback));
+    return getTestingData(suite, testDataset(suite, posClass, callback));
 }
 
 /**
  * Test the API on a dataset
+ * @param {string} suite    - Which test suite to run. E.g. 'a1a', 'a2a', etc...
  * @param {string|number} posClass  - Which class to consider positive
  * @param {function} callback
  * @return {*}
  */
-function testDataset(posClass, callback) {
+function testDataset(suite, posClass, callback) {
     return function (err, dataset) {
         if (err) {
             return callback(err);
@@ -141,7 +143,7 @@ function testDataset(posClass, callback) {
         }
 
         console.log("Test " + dataset.length + " rows...");
-        return async.mapLimit(dataset, MAX_CALLS, testRow.bind(null, posClass/*, row, callback */), function (e, r) {
+        return async.mapLimit(dataset, MAX_CALLS, testRow.bind(null, suite, posClass/*, row, callback */), function (e, r) {
             console.log("Done testing.\n");
 
             if (e) {
