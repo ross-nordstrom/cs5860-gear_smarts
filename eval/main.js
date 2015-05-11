@@ -55,7 +55,7 @@
 /*global exports, process, require, exports */
 "use strict";
 
-var NAMESPACE = 'test_a1a';
+var NAMESPACE = 'evalApi';
 var URL = 'http://localhost:8080/v1/ml/' + NAMESPACE;
 var TRAIN_FILE = 'train.txt';
 var TEST_FILE = 'test.txt';
@@ -63,8 +63,8 @@ var NUM_ROWS = 10;
 var MAX_CALLS = 10;
 var PRECISION = 1000; // How accurate should results be?
 
-var TRAIN_URL = [URL, 'train'].join('/');
-var CLASSIFY_URL = [URL, 'classify'].join('/');
+var TRAIN_PATH = 'train';
+var CLASSIFY_PATH = 'classify';
 
 
 var util = require('../lib/utils/main');
@@ -79,11 +79,12 @@ var request = require('superagent');
 
 /**
  * Train on the default dataset
+ * @param {string} suite    - Which test suite to run. E.g. 'a1a', 'a2a', etc...
  * @param callback
  * @return {*}
  */
-function train(callback) {
-    return getTrainingData(trainDataset(callback));
+function train(suite, callback) {
+    return getTrainingData(suite, trainDataset(callback));
 }
 
 /**
@@ -115,11 +116,13 @@ function trainDataset(callback) {
 
 /**
  * Test on the default dataset
+ * @param {string} suite    - Which test suite to run. E.g. 'a1a', 'a2a', etc...
+ * @param {string|number} posClass  - Which class to consider positive
  * @param callback
  * @return {*}
  */
-function test(callback) {
-    return getTestingData(testDataset('+1', callback));
+function test(suite, posClass, callback) {
+    return getTestingData(suite, testDataset(posClass, callback));
 }
 
 /**
@@ -175,14 +178,15 @@ function testDataset(posClass, callback) {
 
 /**
  * Train the API on a feature/class row
+ * @param {string} suite    - Which test suite to run. E.g. 'a1a', 'a2a', etc...
  * @param {array} row           - [ [f1,f2,...,fn], cls ]
  * @param {function} callback
  */
-function trainRow(row, callback) {
+function trainRow(suite, row, callback) {
     if (!_.isArray(row) || _.size(row) !== 2) {
         return callback(new Error('Expecting row to look like: [ [f1,f2,...,fn], cls ]'));
     }
-    var url = [TRAIN_URL, row[1]].join('/');
+    var url = [[URL, suite].join('_'), TRAIN_PATH, row[1]].join('/');
 
     return request.post(url)
         .send({features: row[0]})
@@ -192,11 +196,12 @@ function trainRow(row, callback) {
 }
 /**
  * Test the API on a feature/class row. Assumes there are only 2 classes
+ * @param {string} suite    - Which test suite to run. E.g. 'a1a', 'a2a', etc...
  * @param {string|number} posClass  - Which class to consider positive
  * @param {array} row           - [ [f1,f2,...,fn], cls ]
  * @param {function} callback
  */
-function testRow(posClass, row, callback) {
+function testRow(suite, posClass, row, callback) {
     if (_.size(row) !== 2) {
         return callback(new Error('Expecting row to look like: [ [f1,f2,...,fn], cls ]'));
     }
@@ -215,7 +220,9 @@ function testRow(posClass, row, callback) {
         return callback(null, result);
     };
 
-    return request.post(CLASSIFY_URL)
+    var url = [[URL, suite].join('_'), CLASSIFY_PATH, row[1]].join('/');
+
+    return request.post(url)
         .send({features: row[0]})
         .set('Accept', 'application/json')
         .end(resHandler(compareClass))
@@ -224,9 +231,10 @@ function testRow(posClass, row, callback) {
 
 /**
  * Retrieve the trained dataset
+ * @param {string} suite    - Which test suite to run. E.g. 'a1a', 'a2a', etc...
  */
-function dump(callback) {
-    return request.get(URL)
+function dump(suite, callback) {
+    return request.get([URL, suite].join('_'))
         .set('Accept', 'application/json')
         .end(resHandler(callback))
         .url;
@@ -260,11 +268,11 @@ function logger(err, res) {
         }
     }
 }
-function getTrainingData(callback) {
-    return getData([__dirname, TRAIN_FILE].join('/'), callback);
+function getTrainingData(suite, callback) {
+    return getData([__dirname, suite, TRAIN_FILE].join('/'), callback);
 }
-function getTestingData(callback) {
-    return getData([__dirname, TEST_FILE].join('/'), callback);
+function getTestingData(suite, callback) {
+    return getData([__dirname, suite, TEST_FILE].join('/'), callback);
 }
 function getData(filename, callback) {
     return fs.readFile(filename, {encoding: 'utf8'}, function (err, data) {
