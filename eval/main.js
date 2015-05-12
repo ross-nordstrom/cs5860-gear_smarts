@@ -312,20 +312,28 @@ function normalizeComfortData(filename, callback) {
          *   ...
          * ]
          */
-        var formattedData = async.mapLimit(data.split("\n"), MAX_CALLS, function (row, taskCb) {
-            var els = row.split(",");
+        return async.mapLimit(data.split("\n"), MAX_CALLS, function (row, taskCb) {
+            var els = row.split(",").map(_.trim);
+            console.log('Elements: ["' + els.join('", "') + '"]');
+            console.log("Trim works?? '" + _.trim('    foo bar    ') + "'");
             var cls = els[0];
             var weatherPath = els[1];
             var outfitFts = els.slice(2);
 
-            return fs.readFile(['.',weatherPath].join('/'), {encoding: 'utf8'}, function(err, weatherJson) {
-                if(err) { return taskCb(err);}
+            return fs.readFile(['.', weatherPath].join('/'), {encoding: 'utf8'}, function (err, weatherJson) {
+                if (err) {
+                    return taskCb(err);
+                }
 
-                var weatherData = JSON.parse(weatherJson);
-                return taskCb(new Error('not implemented'));
+                try {
+                    var weatherData = JSON.parse(weatherJson);
+                    console.log("WEATHER: ", weatherData);
+                    return taskCb(new Error('not implemented'));
+                } catch (e) {
+                    return taskCb(e);
+                }
             });
-        });
-        return callback(null, formattedData);
+        }, callback);
     });
 }
 function getData(filename, callback) {
@@ -378,4 +386,5 @@ exports.testRow = testRow;
 exports.dump = dump;
 exports.getTrainingData = getTrainingData;
 exports.getTestingData = getTestingData;
+exports.normalizeComfortData = normalizeComfortData;
 exports.logger = logger;
