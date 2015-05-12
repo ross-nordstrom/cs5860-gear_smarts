@@ -16,19 +16,22 @@ cold, history_20150215/q/MN/Minneapolis.json, female, 19_24, walking, city, wool
 hott, INDOOR, female, 45_59, workout, weights, spandex_pants, tshirt, fleece
 hott, INDOOR, female, 45_59, workout, weights, spandex_pants, base_bottom, base_top, fleece
 hott, INDOOR, female, 45_59, workout, weights, spandex_pants, base_bottom, base_top, down 
+cold, history_20150216/q/WI/Brookfield.json, female, 45_59, walking, neighborhood, tshirt, base_top, hat, running_tights, windproof_pants, wool_socks
+hott, history_20150216/q/WI/Brookfield.json, female, 45_59, walking, neighborhood, tshirt, base_top, shell, hat, gloves, running_tights, windproof_pants, wool_socks, down, fleece, base_bottom
+cold, history_20150216/q/AZ/Phoenix.json, female, 45_59, walking, neighborhood, tshirt, shorts
+hott, history_20150216/q/AZ/Phoenix.json, female, 45_59, walking, neighborhood, base_bottom, tshirt, cotton_sweatshirt, base_top, heavy_jacket
+cold, history_20150222/q/CO/Keystone.json, male, 25_34, ski/board, night, base_top, base_bottom, down
+hott, history_20150222/q/CO/Keystone.json, male, 25_34, ski/board, night, base_top, base_bottom, wool_sweater, fleece, down, shell
+cold, history_20150227/q/CO/Keystone.json, male, 25_34, ski/board, night, tshirt, shell
+cold, history_20150228/q/MI/Belmont.json, male, 25_34, ski/board, bunny, base_top, jacket, balaclava, compression_pants, snow_pants, wicking_socks, smartwool_socks, boots
+cold, history_20150303/q/MI/Grand\ Rapids.json, 25_34, running, street, buff_band, hat, base_top, jacket, running_pants, double_socks, trail_shoes
+cold, history_20150308/q/CO/Keystone.json, male, 25_34, ski/board, groomers, base_top, base_bottom, light_jacket 
+cold, history_20150308/q/CO/Keystone.json, male, 25_34, ski/board, moguls, base_top, base_bottom, tshirt, shell
+cold, history_20150308/q/CO/Keystone.json, female, 25_34, ski/board, groomers, base_top, shorts, shell
+hott, history_20150308/q/CO/Keystone.json, female, 25_34, ski/board, groomers, base_top, base_bottom, fleece, down, heavy_jacket
 
 # Synth above; Raw-to-be-synthed below
 
-
-good, history_20150216/q/WI/Brookfield.json, female, 45_59, walking, neighborhood, tshirt, base_top, shell, hat, gloves, running_tights, windproof_pants, wool_socks
-good, history_20150216/q/AZ/Phoenix.json, female, 45_59, walking, neighborhood, tshirt, shorts, cotton_sweatshirt
-good, history_20150222/q/CO/Keystone.json, male, 25_34, ski/board, night, base_top, base_bottom, fleece, down, shell
-good, history_20150227/q/CO/Keystone.json, male, 25_34, ski/board, night, down, fleece, shell
-good, history_20150228/q/MI/Belmont.json, male, 25_34, ski/board, bunny, base_top, wicking_longsleeve, sweater, jacket, balaclava, compression_pants, sweat_pants, snow_pants, wicking_socks, smartwool_socks, boots, gloves
-good, history_20150303/q/MI/Grand\ Rapids.json, 25_34, running, street, buff_band, hat, base_top, wicking_longsleeve, sweater, jacket, running_pants, double_socks, trail_shoes
-hott, history_20150308/q/CO/Keystone.json, male, 25_34, ski/board, groomers, base_top, base_bottom, fleece, down_vest, balaclava, shell
-hott, history_20150308/q/CO/Keystone.json, male, 25_34, ski/board, moguls, base_top, base_bottom, fleece, down_vest, balaclava, shell
-good, history_20150308/q/CO/Keystone.json, female, 25_34, ski/board, groomers, base_top, base_bottom, down, shell
 hott, history_20150309/q/CO/Keystone.json, male, 25_34, ski/board, groomers, tshirt, base_bottom, fleece, down_vest, balaclava, shell
 hott, history_20150309/q/CO/Keystone.json, male, 25_34, ski/board, moguls, tshirt, base_bottom, fleece, down_vest, balaclava, shell
 hott, history_20150309/q/CO/Keystone.json, female, 25_34, ski/board, groomers, base_top, base_bottom, down, shell
