@@ -1,18 +1,25 @@
-good, history_20141226/q/WI/Delafield.json, female 19_24, hiking, trail, wool_socks, tennis_shoes, leggings, fleece, down, scarf, hat
-cold, history_20141227/q/WI/Keystone.json, female, 25_34, ski/board, groomers, tshirt, fleece, down, shell
-good, history_20150107/q/WI/Milwaukee.json, male, 45_59, walking, dogs, tshirt, flannel, jeans, insulated_jacket, gator, hat, boots, gloves
-good, history_20150130/q/CO/Vail.json, male, 45_59, ski/board, groomers, wool_long_underwear_top, wool_long_underwear_bottom, snow_pants, fleece, shell
-good, history_20150131/q/CO/Vail.json, female, 25_34, ski/board, groomers, tshirt, fleece, down, snow_pants, shell
-hott, history_20150131/q/CO/Vail.json, female, 25_34, ski/board, bowls, tshirt, fleece, down, snow_pants, shell
-hott, history_20150207/q/CO/Breckenridge.json, 25_34, male, ski/board, groomers, tshirt, fleece, pj_bottoms, snow_pants, shell
-cold, history_20150208/q/MN/Lutsen.json, 19_24, female, ski/board, groomers, silk_long_underwear_bottom, silk_long_underwear_top, fleece_bottom, fleece, gator, ski_helmet, shell
-good, history_20150208/q/CO/Aspen.json, 25_34, female, ski/board, groomers, base_top, base_bottom, snow_pants, down, shell
-good, history_20150213/q/WI/Madison.json, 25_34, male, ski/board, nordic, base_top, nordic_tights, nordic_jacket, wool_socks, hat, gloves
-good, history_20150214/q/CO/Colorado\ Springs.json, female, 25_34, hiking, flat, capris, tank_top, fleece
-good, history_20150215/q/KS/Kansas\ City.json, female, 19_24, running, trail, yoga_pants, tennis_shoes, shell
-good, history_20150215/q/WI/Brookfield.json, female, 45_59, walking, dogs, base_bottom, jeans, base_top, cotton_sweater, down
-good, history_20150215/q/MN/Minneapolis.json, female, 19_24, walking, city, wool_socks, leggings, base_top, sweater, down, boots
-hott, INDOOR, female, 45_59, workout, weights, spandex_pants, tshirt
+cold, history_20141226/q/WI/Delafield.json, female 19_24, hiking, trail, tshirt, tennis_shoes
+cold, history_20150107/q/WI/Milwaukee.json, male, 45_59, walking, dogs, tshirt, flannel, jeans, insulated_jacket, boots
+cold, history_20150130/q/CO/Vail.json, male, 45_59, ski/board, groomers, tshirt, fleece
+cold, history_20150130/q/CO/Vail.json, male, 45_59, ski/board, groomers, tshirt, shell
+cold, history_20150131/q/CO/Vail.json, female, 25_34, ski/board, groomers, tshirt, snow_pants, shell
+cold, history_20150131/q/CO/Vail.json, female, 25_34, ski/board, bowls, tshirt, snow_pants, shell
+cold, history_20150207/q/CO/Breckenridge.json, 25_34, male, ski/board, groomers, base_top, snow_pants, shell
+cold, history_20150208/q/CO/Aspen.json, 25_34, female, ski/board, groomers, base_top, base_bottom, snow_pants, shell
+cold, history_20150213/q/WI/Madison.json, 25_34, male, ski/board, nordic, base_top, nordic_tights, wool_socks
+hott, history_20150214/q/CO/Colorado\ Springs.json, female, 25_34, hiking, flat, ski_pants, fleece, down, shell
+cold, history_20150214/q/CO/Colorado\ Springs.json, female, 25_34, hiking, flat, capris, tank_top
+cold, history_20150215/q/KS/Kansas\ City.json, female, 19_24, running, trail, yoga_pants, tennis_shoes
+hott, history_20150215/q/KS/Kansas\ City.json, female, 19_24, running, trail, base_bottom, yoga_pants, tennis_shoes, down, shell
+cold, history_20150215/q/WI/Brookfield.json, female, 45_59, walking, dogs, base_bottom, jeans, base_top, fleece
+cold, history_20150215/q/MN/Minneapolis.json, female, 19_24, walking, city, wool_socks, leggings, base_top, fleece, boots
+hott, INDOOR, female, 45_59, workout, weights, spandex_pants, tshirt, fleece
+hott, INDOOR, female, 45_59, workout, weights, spandex_pants, base_bottom, base_top, fleece
+hott, INDOOR, female, 45_59, workout, weights, spandex_pants, base_bottom, base_top, down 
+
+# Synth above; Raw-to-be-synthed below
+
+
 good, history_20150216/q/WI/Brookfield.json, female, 45_59, walking, neighborhood, tshirt, base_top, shell, hat, gloves, running_tights, windproof_pants, wool_socks
 good, history_20150216/q/AZ/Phoenix.json, female, 45_59, walking, neighborhood, tshirt, shorts, cotton_sweatshirt
 good, history_20150222/q/CO/Keystone.json, male, 25_34, ski/board, night, base_top, base_bottom, fleece, down, shell
