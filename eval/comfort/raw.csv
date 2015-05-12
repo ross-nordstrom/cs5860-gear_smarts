@@ -32,4 +32,12 @@ hott, history_20150311/q/CO/Keystone.json, male, 25_34, ski/board, moguls, base_
 hott, history_20150311/q/CO/Keystone.json, female, 25_34, ski/board, groomers, base_top, down, shell
 good, history_20150311/q/CO/Keystone.json, female, 19_24, ski/board, groomers, smartwool, silk_long_underwear_top, silk_long_underwear_bottom, ski_coat, mittens
 good, history_20150311/q/CO/Keystone.json, female, 19_24, ski/board, moguls, smartwool, silk_long_underwear_top, silk_long_underwear_bottom, ski_coat, mittens
+good, history_20150311/q/CO/Keystone.json, male, 45_59, ski/board, groomers, base_top, base_bottom, fleece, shell, ski_pants
+cold, history_20150312/q/CO/Keystone.json, male, 25_34, ski/board, groomers, base_top, base_bottom, fleece, shell
+cold, history_20150312/q/CO/Keystone.json, male, 25_34, ski/board, moguls, base_top, base_bottom, fleece, shell
+good, history_20150312/q/CO/Keystone.json, female, 25_34, ski/board, groomers, base_top, down, shell
+good, history_20150312/q/CO/Keystone.json, female, 45_59, ski/board, groomers, base_top, base_bottom, fleece_vest, down, fleece, shell, ski_pants, smartwool, gator
+good, history_20150312/q/CO/Keystone.json, male, 25_34, ski/board, groomers, base_top, base_bottom, ski_pants, tshirt, heavey_jacket
+good, history_20150312/q/CO/Keystone.json, male, 45_59, ski/board, groomers, base_top, base_bottom, fleece, shell, ski_pants
+good, history_20150313/q/CO/Keystone.json, male, 45_59, ski/board, groomers, base_top, base_bottom, fleece, shell, ski_pants
 
