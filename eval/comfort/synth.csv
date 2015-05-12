@@ -7,10 +7,10 @@ cold, history_20150131/q/CO/Vail.json, female, 25_34, ski/board, bowls, tshirt, 
 cold, history_20150207/q/CO/Breckenridge.json, 25_34, male, ski/board, groomers, base_top, snow_pants, shell
 cold, history_20150208/q/CO/Aspen.json, 25_34, female, ski/board, groomers, base_top, base_bottom, snow_pants, shell
 cold, history_20150213/q/WI/Madison.json, 25_34, male, ski/board, nordic, base_top, nordic_tights, wool_socks
-hott, history_20150214/q/CO/Colorado\ Springs.json, female, 25_34, hiking, flat, ski_pants, fleece, down, shell
-cold, history_20150214/q/CO/Colorado\ Springs.json, female, 25_34, hiking, flat, capris, tank_top
-cold, history_20150215/q/KS/Kansas\ City.json, female, 19_24, running, trail, yoga_pants, tennis_shoes
-hott, history_20150215/q/KS/Kansas\ City.json, female, 19_24, running, trail, base_bottom, yoga_pants, tennis_shoes, down, shell
+hott, history_20150214/q/CO/Colorado Springs.json, female, 25_34, hiking, flat, ski_pants, fleece, down, shell
+cold, history_20150214/q/CO/Colorado Springs.json, female, 25_34, hiking, flat, capris, tank_top
+cold, history_20150215/q/KS/Kansas City.json, female, 19_24, running, trail, yoga_pants, tennis_shoes
+hott, history_20150215/q/KS/Kansas City.json, female, 19_24, running, trail, base_bottom, yoga_pants, tennis_shoes, down, shell
 cold, history_20150215/q/WI/Brookfield.json, female, 45_59, walking, dogs, base_bottom, jeans, base_top, fleece
 cold, history_20150215/q/MN/Minneapolis.json, female, 19_24, walking, city, wool_socks, leggings, base_top, fleece, boots
 hott, INDOOR, female, 45_59, workout, weights, spandex_pants, tshirt, fleece
@@ -24,7 +24,7 @@ cold, history_20150222/q/CO/Keystone.json, male, 25_34, ski/board, night, base_t
 hott, history_20150222/q/CO/Keystone.json, male, 25_34, ski/board, night, base_top, base_bottom, wool_sweater, fleece, down, shell
 cold, history_20150227/q/CO/Keystone.json, male, 25_34, ski/board, night, tshirt, shell
 cold, history_20150228/q/MI/Belmont.json, male, 25_34, ski/board, bunny, base_top, jacket, balaclava, compression_pants, snow_pants, wicking_socks, smartwool_socks, boots
-cold, history_20150303/q/MI/Grand\ Rapids.json, 25_34, running, street, buff_band, hat, base_top, jacket, running_pants, double_socks, trail_shoes
+cold, history_20150303/q/MI/Grand Rapids.json, 25_34, running, street, buff_band, hat, base_top, jacket, running_pants, double_socks, trail_shoes
 cold, history_20150308/q/CO/Keystone.json, male, 25_34, ski/board, groomers, base_top, base_bottom, light_jacket
 cold, history_20150308/q/CO/Keystone.json, male, 25_34, ski/board, moguls, base_top, base_bottom, tshirt, shell
 cold, history_20150308/q/CO/Keystone.json, female, 25_34, ski/board, groomers, base_top, shorts, shell
@@ -52,19 +52,19 @@ cold, history_20150314/q/CO/Keystone.json, female, 45_59, ski/board, groomers, t
 cold, history_20150318/q/WI/Brookfield.json, female, 45_59, walking, dogs, base_top, tshirt, hat, thin_gloves
 cold, history_20150320/q/WI/Brookfield.json, female, 45_59, walking, dogs, base_top, down, shorts
 cold, history_20150321/q/WI/Brookfield.json, female, 45_59, walking, dogs, blouse, sweater, light_gloves
-hott, history_20150321/q/CO/Colorado\ Springs.json, male, 25_34, hiking, trail, athletic_button_down, dryfit_pants, down_vest, fleece
-hott, history_20150321/q/CO/Colorado\ Springs.json, male, 25_34, hiking, scramble, athletic_button_down, dryfit_pants, fleece_vest, down
-hott, history_20150321/q/CO/Colorado\ Springs.json, female, 25_34, hiking, trail, leggings, tank_top, athletic_jacket, heavy_jacket
-hott, history_20150321/q/CO/Colorado\ Springs.json, female, 25_34, hiking, scramble, leggings, tank_top, athletic_jacket, wool_sweater
+hott, history_20150321/q/CO/Colorado Springs.json, male, 25_34, hiking, trail, athletic_button_down, dryfit_pants, down_vest, fleece
+hott, history_20150321/q/CO/Colorado Springs.json, male, 25_34, hiking, scramble, athletic_button_down, dryfit_pants, fleece_vest, down
+hott, history_20150321/q/CO/Colorado Springs.json, female, 25_34, hiking, trail, leggings, tank_top, athletic_jacket, heavy_jacket
+hott, history_20150321/q/CO/Colorado Springs.json, female, 25_34, hiking, scramble, leggings, tank_top, athletic_jacket, wool_sweater
 hott, history_20150321/q/CO/Monarch.json, female, 25_34, ski/board, groomers, tshirt, fleece, down, shell
 hott, history_20150321/q/CO/Monarch.json, female, 25_34, ski/board, groomers, tshirt, down, shell
 cold, history_20150327/q/CO/Littleton.json, male, 75+, walking, path, shorts, turtle_neck, fleece_vest
-hott, history_20150328/q/CO/Colorado\ Springs.json, male, 25_34, hiking, summit, drifit_pants, tshirt, ski_pants, fleece_vest
-hott, history_20150328/q/CO/Colorado\ Springs.json, male, 25_34, hiking, summit, drifit_pants, tshirt, ski_pants, down_vest
-hott, history_20150328/q/CO/Colorado\ Springs.json, male, 25_34, hiking, trail, shorts, drifit_shirt, heavy_jacket
-hott, history_20150328/q/CO/Colorado\ Springs.json, female, 25_34, hiking, summit, leggings, tank_top, down
+hott, history_20150328/q/CO/Colorado Springs.json, male, 25_34, hiking, summit, drifit_pants, tshirt, ski_pants, fleece_vest
+hott, history_20150328/q/CO/Colorado Springs.json, male, 25_34, hiking, summit, drifit_pants, tshirt, ski_pants, down_vest
+hott, history_20150328/q/CO/Colorado Springs.json, male, 25_34, hiking, trail, shorts, drifit_shirt, heavy_jacket
+hott, history_20150328/q/CO/Colorado Springs.json, female, 25_34, hiking, summit, leggings, tank_top, down
 hott, history_20150328/q/CO/Littleton.json, male, 75+, biking, path, tshirt, sweatpants, balaclava, base_top
-hott, history_20150416/q/ /Punta\ Cana.json, male, 45_59, beach, laying, swim suit, down
-hott, history_20150416/q/ /Punta\ Cana.json, male, 45_59, beach, laying, swim suit, fleece
-hott, history_20150416/q/ /Punta\ Cana.json, male, 45_59, beach, laying, swim suit, shell
-hott, history_20150416/q/ /Punta\ Cana.json, male, 45_59, beach, laying, swim suit, base_top
+hott, history_20150416/q/ /Punta Cana.json, male, 45_59, beach, laying, swim suit, down
+hott, history_20150416/q/ /Punta Cana.json, male, 45_59, beach, laying, swim suit, fleece
+hott, history_20150416/q/ /Punta Cana.json, male, 45_59, beach, laying, swim suit, shell
+hott, history_20150416/q/ /Punta Cana.json, male, 45_59, beach, laying, swim suit, base_top

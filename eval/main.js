@@ -66,6 +66,7 @@ var PRECISION = 1000; // How accurate should results be?
 var TRAIN_PATH = 'train';
 var CLASSIFY_PATH = 'classify';
 
+var INDOOR_FEATURES = ['INDOOR', 'meantempi=70', 'mintempi=65', 'maxtempi=75'];
 
 var util = require('../lib/utils/main');
 var _ = util._;
@@ -316,11 +317,16 @@ function normalizeComfortData(filename, callback) {
             var els = row.split(",").map(function (x) {
                 return x.trim();
             });
-            console.log('Elements: ["' + els.join('", "') + '"]');
-            console.log("Trim works?? '" + _.trim(els[1]) + "'");
+            if (_.size(els) < 3) {
+                return taskCb(null, null);
+            }
             var cls = els[0];
             var weatherPath = els[1];
             var outfitFts = els.slice(2);
+
+            if (weatherPath.indexOf('INDOOR') >= 0) {
+                return taskCb(null, [cls].concat(INDOOR_FEATURES).concat(outfitFts))
+            }
 
             return fs.readFile(['./lib/weather/wunderground', weatherPath].join('/'), {encoding: 'utf8'}, function (err, weatherJson) {
                 if (err) {
@@ -329,14 +335,23 @@ function normalizeComfortData(filename, callback) {
 
                 try {
                     var weatherData = JSON.parse(weatherJson);
-                    console.log("WEATHER: ", weatherData);
-                    return taskCb(new Error('not implemented'));
+                    var weatherInfo = formatWeather(weatherData);
+                    var weatherFts = _.map(weatherInfo, serializeKeyVal('=')/*(val, key)*/); // Ex: { temp: 74 } becomes "temp=74"
+                    return taskCb(null, [cls].concat(weatherFts).concat(outfitFts));
                 } catch (e) {
                     return taskCb(e);
                 }
             });
-        }, callback);
+        }, function (err, res) {
+            // Remove nulls
+            return callback(err, !err ? _.compact(res) : res);
+        });
     });
+}
+function serializeKeyVal(glue) {
+    return function (val, key) {
+        return [key, val].join(glue);
+    }
 }
 // Info about the keys - http://www.wunderground.com/weather/api/d/docs?d=resources/phrase-glossary
 function formatWeather(weatherData) {
@@ -358,9 +373,13 @@ function formatWeather(weatherData) {
         snowfalli: bucketizer(4), // Inches of snow. Groups of 4
         snowdepthi: bucketizer(4) // Inches of snow. Groups of 4
     };
-    return _.extend(_.pick(weatherData, rawKeys), _.mapObject(bucketKeys, function (fun, key) {
+    var preppedWeather = _.extend(_.pick(weatherData, rawKeys), _.mapObject(bucketKeys, function (fun, key) {
         return fun(weatherData[key]);
     }));
+    // Ignore keys with "" or NaN or null as the value
+    return _.omit(preppedWeather, function (val, key) {
+        return _.isNull(val) || _.isNaN(val) || val === '';
+    });
 }
 function bucketizer(bktSize) {
     return function (str) {
