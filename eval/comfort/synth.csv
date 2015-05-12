@@ -29,12 +29,10 @@ cold, history_20150308/q/CO/Keystone.json, male, 25_34, ski/board, groomers, bas
 cold, history_20150308/q/CO/Keystone.json, male, 25_34, ski/board, moguls, base_top, base_bottom, tshirt, shell
 cold, history_20150308/q/CO/Keystone.json, female, 25_34, ski/board, groomers, base_top, shorts, shell
 hott, history_20150308/q/CO/Keystone.json, female, 25_34, ski/board, groomers, base_top, base_bottom, fleece, down, heavy_jacket
+cold, history_20150309/q/CO/Keystone.json, male, 25_34, ski/board, groomers, tshirt, base_bottom, balaclava, shell
+hott, history_20150309/q/CO/Keystone.json, male, 25_34, ski/board, moguls, tshirt, base_bottom, balaclava, shell
+cold, history_20150309/q/CO/Keystone.json, female, 25_34, ski/board, groomers, base_top, base_bottom
 
-# Synth above; Raw-to-be-synthed below
-
-hott, history_20150309/q/CO/Keystone.json, male, 25_34, ski/board, groomers, tshirt, base_bottom, fleece, down_vest, balaclava, shell
-hott, history_20150309/q/CO/Keystone.json, male, 25_34, ski/board, moguls, tshirt, base_bottom, fleece, down_vest, balaclava, shell
-hott, history_20150309/q/CO/Keystone.json, female, 25_34, ski/board, groomers, base_top, base_bottom, down, shell
 cold, history_20150309/q/CO/Keystone.json, female, 45_59, ski/board, groomers, down, fleece, shell, gator, gloves, smartwool, base_bottom, ski_pants, gloves
 good, history_20150310/q/CO/Keystone.json, male, 25_34, ski/board, groomers, base_top, base_bottom, fleece, shell, balaclava
 good, history_20150310/q/CO/Keystone.json, male, 25_34, ski/board, moguls, base_top, base_bottom, fleece, shell, balaclava
