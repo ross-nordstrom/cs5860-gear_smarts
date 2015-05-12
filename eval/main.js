@@ -295,6 +295,39 @@ function getTrainingData(suite, callback) {
 function getTestingData(suite, callback) {
     return getData([__dirname, suite, TEST_FILE].join('/'), callback);
 }
+function normalizeComfortData(filename, callback) {
+    return fs.readFile(filename, {encoding: 'utf8'}, function (err, data) {
+        if (err) {
+            return callback(err);
+        }
+
+        /*
+         * Expect data to look like:
+         *
+         * <class>, <path to weather info>, <gender>, <age_group>, <activity>, <subactivity>, <outfit_features[]>
+         *
+         * And we want it to look like:
+         * [
+         *   [ [ <weather_features[]>:1[]<gender>:1 <age_group>:1, <activity>:1, <subactivity>:1, <outfit_features[]>:1[] ], <class> ]
+         *   ...
+         * ]
+         */
+        var formattedData = async.mapLimit(data.split("\n"), MAX_CALLS, function (row, taskCb) {
+            var els = row.split(",");
+            var cls = els[0];
+            var weatherPath = els[1];
+            var outfitFts = els.slice(2);
+
+            return fs.readFile(['.',weatherPath].join('/'), {encoding: 'utf8'}, function(err, weatherJson) {
+                if(err) { return taskCb(err);}
+
+                var weatherData = JSON.parse(weatherJson);
+                return taskCb(new Error('not implemented'));
+            });
+        });
+        return callback(null, formattedData);
+    });
+}
 function getData(filename, callback) {
     return fs.readFile(filename, {encoding: 'utf8'}, function (err, data) {
         if (err) {
