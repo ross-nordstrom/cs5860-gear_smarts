@@ -308,6 +308,11 @@ function getData(filename, callback) {
          * +1 4:1 9:1 18:1 20:1 37:1 42:1 55:1 64:1 67:1 73:1 75:1 76:1 82:1 83:1
          *
          * And we want it to look like:
+         * [
+         *   [ [ 2, 8, 17, 19, ... ], -1 ]
+         *   [ [ 4, 9, 18, 20, ... ], +1 ]
+         *   ...
+         * ]
          */
         var formattedData = data.split("\n").map(function (row) {
             var els = row.split(" ");
