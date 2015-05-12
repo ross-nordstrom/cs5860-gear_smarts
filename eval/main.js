@@ -313,14 +313,16 @@ function normalizeComfortData(filename, callback) {
          * ]
          */
         return async.mapLimit(data.split("\n"), MAX_CALLS, function (row, taskCb) {
-            var els = row.split(",").map(_.trim);
+            var els = row.split(",").map(function (x) {
+                return x.trim();
+            });
             console.log('Elements: ["' + els.join('", "') + '"]');
-            console.log("Trim works?? '" + _.trim('    foo bar    ') + "'");
+            console.log("Trim works?? '" + _.trim(els[1]) + "'");
             var cls = els[0];
             var weatherPath = els[1];
             var outfitFts = els.slice(2);
 
-            return fs.readFile(['.', weatherPath].join('/'), {encoding: 'utf8'}, function (err, weatherJson) {
+            return fs.readFile(['./lib/weather/wunderground', weatherPath].join('/'), {encoding: 'utf8'}, function (err, weatherJson) {
                 if (err) {
                     return taskCb(err);
                 }
@@ -335,6 +337,39 @@ function normalizeComfortData(filename, callback) {
             });
         }, callback);
     });
+}
+// Info about the keys - http://www.wunderground.com/weather/api/d/docs?d=resources/phrase-glossary
+function formatWeather(weatherData) {
+    var rawKeys = ['snow', 'rain', 'thunder', 'precipsource'];
+    // For each key we want that we can't use raw, define a transform function
+    // putting it in an appropriate bucket
+    var bucketKeys = {
+        maxhumidity: bucketizer(10), // 0-100%. Group by Tens
+        minhumidity: bucketizer(10), // 0-100%. Group by Tens
+        meandewpti: bucketizer(10), // Dewpoint in F
+        meanpressurei: bucketizer(1), // Min ever = 25.69 inHg; Max ever = 32.06 inHg
+        meantempi: bucketizer(10), // Degrees F
+        meanwindspdi: _.compose(bucketizer(1), log2), // Log_2 of the MPH. Should be 0 - 7
+        minwspdi: _.compose(bucketizer(1), log2), // Log_2 of the MPH. Should be 0 - 7
+        maxwspdi: _.compose(bucketizer(1), log2), // Log_2 of the MPH. Should be 0 - 7
+        mintempi: bucketizer(10), // Degrees F
+        maxtempi: bucketizer(10), // Degrees F
+        precipi: bucketizer(0.25), // Inches of rain. Group by 1/4"
+        snowfalli: bucketizer(4), // Inches of snow. Groups of 4
+        snowdepthi: bucketizer(4) // Inches of snow. Groups of 4
+    };
+    return _.extend(_.pick(weatherData, rawKeys), _.mapObject(bucketKeys, function (fun, key) {
+        return fun(weatherData[key]);
+    }));
+}
+function bucketizer(bktSize) {
+    return function (str) {
+        var val = parseFloat(str);
+        return val - val % bktSize;
+    }
+}
+function log2(b) {
+    return Math.log(2) / Math.log(b);
 }
 function getData(filename, callback) {
     return fs.readFile(filename, {encoding: 'utf8'}, function (err, data) {
@@ -387,4 +422,5 @@ exports.dump = dump;
 exports.getTrainingData = getTrainingData;
 exports.getTestingData = getTestingData;
 exports.normalizeComfortData = normalizeComfortData;
+exports.formatWeather = formatWeather;
 exports.logger = logger;
