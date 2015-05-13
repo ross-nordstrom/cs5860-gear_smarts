@@ -34,6 +34,18 @@ First, to evaluate the efficacy of the machine learning core, GearSmarts was eva
 A large part of the evaluation was the question of how would the feature and classification dictionary and indexing implementation
 impact performance.
 
+A Node.js script was used to parse train and test files, query the GearSmarts API with each, and evaluate the performance.
+The evaluation script and datasets can be found in the \texttt{eval/} directory of the source code for this report.
+Three public datasets were evaluated: ``a1a'', ``a2a'', and ``a3a'', all with decent results, shown in figure \ref{fig:aXa}.
+The datasets have 1,605/30,956, 2,265/30,296, and 3,185/29,376 training/testing datapoints each, respectively.
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=90mm]{img/aXa.png}
+    \caption{GearSmarts classifier performance on the aXa datasets}
+    \label{fig:aXa}
+\end{figure}
+
 \subsection{Outfit Comfort}
 TODO
 
