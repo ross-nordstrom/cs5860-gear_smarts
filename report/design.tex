@@ -54,8 +54,8 @@ Both routes take a \texttt{:namespace} argument, which is simply an extensibilit
 many distinct datasets. For example, consumers training the \texttt{candy} namespace would not affect consumers training
 the \texttt{produce} namespace.
 
-Additionally, each route expects a \texttt{POST} body containing either an Array or a key/value Object of features to
-train/classify. Interaction with a GearSmarts server is as simple as making an HTTP POST. An example of an Object
+Additionally, each route expects a \texttt{POST} body containing either an Array of features to
+train or classify. Interaction with a GearSmarts server is as simple as making an HTTP call. An example of an Object
 training structure is shown below.
 
 \begin{lstlisting}
@@ -83,7 +83,7 @@ look like after the above training datapoint and a few others is shown below.
         \multicolumn{3}{c}{Classification} \\
         \hline
         0 & 1 & 2 \\
-        hot & ok & cold \\
+        hott & good & cold \\
         \hline
     \end{tabular}
     \caption{The SVM prefers integer classifications, so store an Array of known classes, and use their index in the SVM}
@@ -142,23 +142,20 @@ fundamental parts, described below.
   \item{Comfort:} Intuitively, there are three basic comfort levels relevant to Gear Smart: too cold, comfortable, and too hot.
 \end{description}
 
-Although a KPI could be used, to make the system more extensible, GearSmarts will model the problem as a set of
+Although a KPI could be used, to make the system more extensible, GearSmarts models the problem as a set of
 articles of clothing, along with a true/false value for each. The UI will submit a list of articles the user wore (or
 plans to wear) to the API, which maintains a dictionary (described above \ref{table:dictionary}) of known articles. The
 API then normalizes the provided articles against the dictionary, producing a key/value object where the values are
 simply \texttt{true} or \texttt{false} denoting if each is present.
 
-The weather will be queried through to-be-built routes in the GearSmarts API providing a key/value object of important
-weather attributes in exchange for the consumer-provided location and date. The resulting key/value object will be
-merged with the outfit features by the UI and provided to the machine learning routes when training and classifying.
+Weather data is queried through the GearSmarts API as a key/value object of important
+weather attributes in exchange for the consumer-provided location and date. The resulting key/value object should be
+normalized by the consumer before being merged with outfit features to construct a feature vector. More details about
+the normalization process used for this report are discussed in \ref{section:evaluation}. As is typical in
+machine learning, the technique used to normalize the features has an enormous impact on the effectiveness of the
+classifier.
 
-The comfort level will be selected from a static list of options (``hot,'' ``cold,'' and ``ok'') by the user when
-training the system. When the UI tries to make an outfit suggestion, it will search the available set of articles of
+The comfort level would be selected from a static list of options (``hot,'' ``cold,'' and ``good'') by the user when
+training the system. When the UI tries to make an outfit suggestion, it would search the available set of articles of
 clothing (a ``wardrobe'') combined with the known weather features, querying the machine learning \texttt{/classify}
-route to find a subset of the wardrobe with an ``ok'' classification.
-
-
-\subsection{User Interface}
-A simple way to enable user interaction would be to consume the machine learning system's RESTful API through a
-mobile app. The interface on the app would simply ask the user what their outfit was that day, and how comfortable
-they were.
+route to find a subset of the wardrobe with a ``good'' classification.
