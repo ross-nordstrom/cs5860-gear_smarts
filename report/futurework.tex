@@ -1,8 +1,23 @@
 \section{Future Work}
 \label{section:futurework}
-TODO
+As the vision of GearSmarts was described in Section \ref{section:design}, the main missing components are simply a UI
+and searching for an optimal outfit out of a given wardrobe. Additionally there is room to improve the classifier and
+understanding of the outfit comfort problem modeling.
 
 \subsection{User Interface}
-A simple way to enable user interaction would be to consume the machine learning system's RESTful API through a
-mobile app. The interface on the app would simply ask the user what their outfit was that day, and how comfortable
-they were.
+\label{section:ui}
+While it was appropriate to simply use scripts for the initial evaluation and implementation of the GearSmarts API for
+this report, eventual productization of the tool will require a UI with which users can easily use the API. The vision
+for the UI is that it will store and model a user's wardrobe (their collection of known articles of clothing), against
+which it can search combinations for the optimal outfit for a given activity in queried weather for the desired location
+and date. Additionally, the UI should make it easy and enjoyable for users to log their outfits and comfort level in order
+to train the system. The best approach is likely to gameify it somehow so that users are rewarded for recording more
+data, thus better training GearSmarts more.
+
+\subsection{Modeling and Configuration}
+\label{section:modelingandconfig}
+As this application of machine learning is exploratory, the approach taken for modeling the problem space, the
+SVM configuration used, and the weather data selected in GearSmarts is expected to evolve as more data is collected and
+a better understanding of the problem space is acquired. Additonal steps and layers may be beneficial to the system, such
+as clustering users into groups of similar heat-tolerances. Then each of these clusters could be trained and classified in
+their own namespace in GearSmarts, thus isolating the ``run-hot'' from the ``always-cold'' users. 
