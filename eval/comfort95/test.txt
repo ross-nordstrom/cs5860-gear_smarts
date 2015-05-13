@@ -1,0 +1,6 @@
+good meantempi=30 maxwspdi=0 meandewpti=10 male 25_34 ski/board groomers base_top base_bottom ski_pants tshirt heavey_jacket
+cold meantempi=30 maxwspdi=0 meandewpti=10 male 25_34 ski/board moguls base_top base_bottom fleece shell
+cold meantempi=10 maxwspdi=0 meandewpti=0 19_24 female ski/board groomers silk_long_underwear_bottom silk_long_underwear_top fleece_bottom fleece gator ski_helmet shell
+good meantempi=10 maxwspdi=0 meandewpti=0 male 25_34 ski/board night down fleece shell
+good meantempi=40 maxwspdi=0 meandewpti=20 male 25_34 hiking trail athletic_button_down dryfit_pants
+good meantempi=40 maxwspdi=0 meandewpti=20 female 45_59 walking dogs base_top cotton_sweater down yoga_pants
