@@ -25,5 +25,9 @@ adapting Gear Smarts to sub-activities with different thermal properties (e.g. m
 
 \subsection{Machine Learning Technique Selection}
 There are numerous papers discussing and comparing the various options for machine learning techniques.
-Some relevant papers to the decision of which technique to use for Gear Smarts include \cite{ML:MapReduceClusters},
-Clear et al. \cite{ML:ManufacturingSystems}, \cite{ML:IPTraffic}, and \cite{ML:GeoMapping}.
+Some relevant papers used in the decision of which technique to use for Gear Smarts include \cite{ML:MapReduceClusters},
+Clear et al. \cite{ML:ManufacturingSystems}, \cite{ML:IPTraffic}, and \cite{ML:GeoMapping}. Ultimately, SVMs were selected
+for their simplicity to use thanks to widely available libraries, support for multi-class classification, and configurability
+via various kernels. Regardless of SVMs being the choice as of this report, the design of GearSmarts allows for SVMs
+to easily be swapped out for other machine learning techniques, while affecting very little of the overall system and
+architecture.
