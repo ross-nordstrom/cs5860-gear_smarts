@@ -47,9 +47,40 @@ The datasets have 1,605/30,956, 2,265/30,296, and 3,185/29,376 training/testing 
 \end{figure}
 
 \subsection{Outfit Comfort}
-TODO
+In more of an exploration than evaluation, GearSmarts was used to learn and classify the results from a survey on
+outfit, activity, and comfort levels. Before evaluating the results, the responses were pre-processed into a normal
+form, including weather data from the GearSmarts API.
 
 \subsubsection{Pre-processing}
 \label{subsection:preprocessing}
+The responses from the survey were transformed in a few phases in order to normalize and extrapolate the dataset into a
+larger, more useful dataset.
 
-TODO
+First from the free-text response to a feature-vector CLS structure
+containing only a weather link but no data, and activity, demographic, and outfit features. Some interpretation of articles of clothing
+was used to reduce the variety of outfit features. Each row in the prepared data
+files consists of (1) a class (good, hott, cold), (2) path of the filesystem-cached weather info for that location and
+date, and (3) the activity, demographic, and outfit features.
+
+Second, the raw datapoints were duplicated with different classes with the outfit features manually modified to make sense.
+This synthesized data is considered reasonable because it followed two rules. The first rule is if someone was hot, adding
+more layers will not change the class and vice-versa with removing layers and the cold class. The second rule was more of a
+common sense rule to convert ``good'' class rows into ``hott'' and ``cold,'' and convert ``hott'' to ``cold'' class rows
+vice-versa. This common sense rule was simply an application of the author's common sense with what it would take to
+change someone's comfort level. For example if a skier was ``good`` with the outfit \texttt{['baseLayerTop', 'baseLayerBottom', 'fleece', 'shell']},
+it is reasonable to say they would be made ``hott'' by adding the layers \texttt{['down','woolSweater','sweatPants']}.
+
+Finally, the CSV file was processed to convert each weather directory path into a feature vector which ultimately replaced the
+weather path in the data CSV. There was some playing around with which weather features to use, something that will and should
+be an ongoing process in the evolution of GearSmarts. Ultimately, only three weather features were used: mean temperature (F),
+max wind speed (MPH), and mean dew point (F). These three were selected as their combination roughly provides the metrics
+typically seen in weather forecasts: temperature, wind chill, and heat index.
+
+After pre-processing and synthesizing, the comfort dataset consists of 132 datapoints.
+
+\subsubsection{Results}
+\label{subsection:preprocessing}
+Evaluation of the pre-process comfort was done as for the public datasets, with the additional step of partitioning the
+datapoints into training and testing files first. As would be expected for such a small dataset with so many features
+(about 12 on average), the results were mediocre; however, they did do better than a dice roll which is an excellent start.
+Results for a few random partitions of 60\% training, 40\% testing data are shown in figure \ref{fig:comfort}.
