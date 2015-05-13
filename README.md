@@ -1,4 +1,4 @@
-# Gear Smarts - An ML Approach to Outdoor Activity Outfit Selection
+# GearSmarts - An ML Approach to Outdoor Activity Outfit Selection
     Ross Nordstrom
     University of Colorado - Colorado Springs
     CS 5860 - Machine Learning

@@ -11,7 +11,7 @@ not all components have been implemented for this report.
 Firstly, Support Vector Machine (SVM) \cite{SVM} was chosen as the machine learning method for implementing an outfit predictor.
 Justification for this choice is provided in Section \ref{section:mlsvm}. Some other methods which were considered are
 denoted in \ref{section:mloptions}. The learning core was implemented as a Node.js RESTful API to make it easy for a
-Mobile App or Web UI to consume on behalf of users of Gear Smarts. It has the additional benefit of being very easy to
+Mobile App or Web UI to consume on behalf of users of GearSmarts. It has the additional benefit of being very easy to
 script against, something that made evaluation of the tool much more approachable.
 The API is described below in Section \ref{section:mlapi}.
 
@@ -54,7 +54,7 @@ can be mastered more gradually over time with use of the system.
 
 \subsubsection{Machine Learning RESTful API}
 \label{section:mlapi}
-In order to make Gear Smarts as extensible and usable as possible, the machine learning core was implemented in Node.js
+In order to make GearSmarts as extensible and usable as possible, the machine learning core was implemented in Node.js
 as a RESTful server, exposing two key routes describe below.
 
 \begin{description}
@@ -140,7 +140,7 @@ fundamental parts, described below.
 
 \begin{description}
   \item{Outfit:} Outfits can either be modeled individually or as a summation of individual articles (potentially introducing
-  a knapsack problem\footnote{The knapsack problem seeks to optimize a value by searching combinations of a set. In Gear Smarts,
+  a knapsack problem\footnote{The knapsack problem seeks to optimize a value by searching combinations of a set. In GearSmarts,
   we might represent an outfit with a KPI that should closely match a KPI produced by a function of the weather. Meanwhile, each
   article of clothing in a wardrobe could have a KPI suggesting how warm it is. To properly match the knapsack problem, we might
   introduce a mobility metric for each article.}).
@@ -148,7 +148,7 @@ fundamental parts, described below.
   fleece, down, and cotton) or by derived characteristics (e.g. thermal retention, mobility, wind-resistance).
   \item{Weather:} Weather should likely be characterized in terms of temperature, humidity, wind, pressure,
   cloud cover, and precipitation.
-  \item{Comfort:} Intuitively, there are three basic comfort levels relevant to Gear Smart: too cold, comfortable, and too hot.
+  \item{Comfort:} Intuitively, there are three basic comfort levels relevant to GearSmarts: too cold, comfortable, and too hot.
 \end{description}
 
 Although a KPI could be used, to make the system more extensible, GearSmarts models the problem as a set of
