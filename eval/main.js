@@ -66,7 +66,9 @@ var PRECISION = 1000; // How accurate should results be?
 var TRAIN_PATH = 'train';
 var CLASSIFY_PATH = 'classify';
 
-var INDOOR_FEATURES = ['INDOOR', 'meantempi=70', 'mintempi=65', 'maxtempi=75'];
+var WEATHER_KEYS = ['meantempi', 'maxwspdi', 'meandewpti'];
+//var INDOOR_FEATURES = ['INDOOR', 'meantempi=70', 'mintempi=65', 'maxtempi=75'];
+var INDOOR_FEATURES = ['INDOOR', 'meantempi=70'];
 
 var util = require('../lib/utils/main');
 var _ = util._;
@@ -376,10 +378,12 @@ function formatWeather(weatherData) {
     var preppedWeather = _.extend(_.pick(weatherData, rawKeys), _.mapObject(bucketKeys, function (fun, key) {
         return fun(weatherData[key]);
     }));
+
     // Ignore keys with "" or NaN or null as the value
-    return _.omit(preppedWeather, function (val, key) {
+    var filteredWeather = _.omit(preppedWeather, function (val, key) {
         return _.isNull(val) || _.isNaN(val) || val === '';
     });
+    return _.pick(filteredWeather, WEATHER_KEYS);
 }
 function bucketizer(bktSize) {
     return function (str) {
@@ -421,7 +425,7 @@ function getData(filename, callback) {
         return callback(null, formattedData);
     });
 }
-function partitionData(percentTrain, sourceFile, destTrain, destTest) {
+function partitionData(percentTrain, sourceFile, destDir) {
     console.log("Partition data into " + percentTrain + "% training");
     var dataBuf = fs.readFileSync(sourceFile, {encoding: 'utf8'});
     var data = dataBuf.split("\n");
@@ -438,8 +442,8 @@ function partitionData(percentTrain, sourceFile, destTrain, destTest) {
         return data[idx];
     });
 
-    fs.writeFileSync(destTrain, train.join("\n"));
-    fs.writeFileSync(destTest, test.join("\n"));
+    fs.writeFileSync([destDir, 'train.txt'].join('/'), train.join("\n"));
+    fs.writeFileSync([destDir, 'test.txt'].join('/'), test.join("\n"));
     console.log("Done partitioning " + _.size(train) + " training, " + _.size(test) + " testing rows");
 }
 

@@ -1,0 +1,106 @@
+good meantempi=30 maxwspdi=0 meandewpti=10 female 25_34 ski/board groomers tshirt shell
+hott meantempi=40 maxwspdi=0 meandewpti=20 female 25_34 hiking trail leggings tank_top athletic_jacket heavy_jacket
+good meantempi=10 maxwspdi=0 meandewpti=0 25_34 male ski/board nordic base_top nordic_tights nordic_jacket wool_socks hat gloves
+good meantempi=0 maxwspdi=0 meandewpti=-10 male 45_59 walking dogs tshirt flannel jeans insulated_jacket gator hat boots gloves
+cold meantempi=30 maxwspdi=0 meandewpti=10 male 25_34 ski/board groomers base_top base_bottom fleece shell
+hott meantempi=30 maxwspdi=0 meandewpti=0 male 25_34 ski/board groomers base_top base_bottom fleece down_vest ski_coat
+good meantempi=20 maxwspdi=0 meandewpti=0 male 45_59 ski/board groomers base_top base_bottom fleece shell ski_pants
+good meantempi=40 maxwspdi=0 meandewpti=20 female 25_34 hiking scramble leggings tank_top athletic_jacket
+good meantempi=0 maxwspdi=0 meandewpti=0 male 25_34 ski/board bunny base_top wicking_longsleeve sweater jacket balaclava compression_pants sweat_pants snow_pants wicking_socks smartwool_socks boots gloves
+hott meantempi=40 maxwspdi=0 meandewpti=10 female 25_34 ski/board groomers tshirt down shell
+cold meantempi=30 maxwspdi=0 meandewpti=0 male 25_34 ski/board groomers base_top base_bottom sweater
+hott INDOOR meantempi=70 female 45_59 workout weights spandex_pants tshirt fleece
+cold meantempi=40 maxwspdi=0 meandewpti=20 female 45_59 walking dogs base_top down shorts
+good meantempi=30 maxwspdi=0 meandewpti=10 male 25_34 ski/board groomers base_top base_bottom ski_pants tshirt heavey_jacket
+cold meantempi=30 maxwspdi=0 meandewpti=10 male 25_34 ski/board groomers tshirt
+good meantempi=10 maxwspdi=0 meandewpti=0 male 25_34 ski/board night base_top base_bottom fleece down shell
+good meantempi=50 maxwspdi=0 meandewpti=10 male 25_34 hiking trail shorts drifit_shirt
+cold meantempi=30 maxwspdi=0 meandewpti=10 male 25_34 ski/board moguls base_top base_bottom fleece shell
+hott meantempi=60 maxwspdi=0 meandewpti=20 male 75+ biking path tshirt sweatpants balaclava base_top
+cold meantempi=30 maxwspdi=0 meandewpti=20 female 45_59 walking dogs blouse sweater light_gloves
+hott meantempi=30 maxwspdi=0 meandewpti=0 male 25_34 ski/board groomers base_top base_bottom fleece down sweater shell balaclava
+good meantempi=60 maxwspdi=0 meandewpti=20 male 75+ biking path tshirt shorts
+cold meantempi=30 maxwspdi=0 meandewpti=30 female 19_24 hiking trail tshirt tennis_shoes
+hott meantempi=30 maxwspdi=0 meandewpti=10 male 25_34 ski/board groomers base_top base_bottom ski_pants cotton_sweater heavy_jacket
+hott meantempi=20 maxwspdi=0 meandewpti=10 male 25_34 ski/board groomers base_top base_bottom fleece down_vest balaclava shell
+cold meantempi=30 maxwspdi=0 meandewpti=0 25_34 male ski/board groomers base_top snow_pants shell
+cold meantempi=0 maxwspdi=0 meandewpti=0 female 25_34 ski/board groomers tshirt fleece down shell
+cold meantempi=10 maxwspdi=0 meandewpti=0 25_34 male ski/board nordic base_top nordic_tights wool_socks
+hott meantempi=40 maxwspdi=0 meandewpti=20 female 25_34 hiking flat ski_pants fleece down shell
+cold meantempi=20 maxwspdi=0 meandewpti=10 female 25_34 ski/board groomers base_top base_bottom
+cold meantempi=20 maxwspdi=0 meandewpti=10 male 25_34 ski/board groomers base_top base_bottom light_jacket
+cold meantempi=10 maxwspdi=0 meandewpti=0 male 25_34 ski/board night tshirt shell
+good meantempi=20 maxwspdi=0 meandewpti=20 25_34 running street buff_band hat base_top wicking_longsleeve sweater jacket running_pants double_socks trail_shoes
+good meantempi=30 maxwspdi=0 meandewpti=30 female 19_24 hiking trail wool_socks tennis_shoes leggings fleece down scarf hat
+good meantempi=50 maxwspdi=0 meandewpti=10 female 25_34 hiking summit leggings tank_top longsleeve_athletic_shirt
+hott meantempi=40 maxwspdi=0 meandewpti=20 male 25_34 hiking scramble athletic_button_down dryfit_pants fleece_vest down
+cold meantempi=20 maxwspdi=0 meandewpti=20 male 45_59 ski/board groomers tshirt shell
+cold meantempi=50 maxwspdi=0 meandewpti=20 male 75+ walking path shorts turtle_neck fleece_vest
+good meantempi=20 maxwspdi=0 meandewpti=0 female 19_24 ski/board moguls smartwool silk_long_underwear_top silk_long_underwear_bottom ski_coat mittens
+hott meantempi=20 maxwspdi=0 meandewpti=0 female 25_34 ski/board groomers base_top down shell
+good meantempi=10 maxwspdi=0 meandewpti=0 female 19_24 running trail yoga_pants tennis_shoes shell
+hott INDOOR meantempi=70 female 45_59 workout weights spandex_pants base_bottom base_top down
+cold meantempi=20 maxwspdi=0 meandewpti=10 male 25_34 ski/board moguls base_top base_bottom tshirt shell
+hott meantempi=20 maxwspdi=0 meandewpti=10 male 25_34 ski/board moguls tshirt base_bottom balaclava shell
+cold meantempi=20 maxwspdi=0 meandewpti=20 25_34 running street buff_band hat base_top jacket running_pants double_socks trail_shoes
+cold meantempi=30 maxwspdi=0 meandewpti=10 female 25_34 ski/board groomers base_top down_vest
+cold meantempi=10 maxwspdi=0 meandewpti=0 male 25_34 ski/board night base_top base_bottom down
+good meantempi=30 maxwspdi=0 meandewpti=10 female 25_34 ski/board groomers base_top down shell
+good meantempi=0 maxwspdi=0 meandewpti=0 female 19_24 walking city wool_socks leggings base_top sweater down boots
+hott meantempi=50 maxwspdi=0 meandewpti=20 male 75+ walking path jeans turtle_neck wind_breaker
+good meantempi=30 maxwspdi=0 meandewpti=0 male 25_34 ski/board groomers base_top base_bottom tshirt ski_coat
+cold meantempi=30 maxwspdi=0 meandewpti=10 male 25_34 ski/board groomers base_top base_bottom ski_pants tshirt shell
+good meantempi=40 maxwspdi=0 meandewpti=20 female 45_59 walking dogs base_top cotton_sweater down yoga_pants
+cold meantempi=30 maxwspdi=0 meandewpti=10 female 45_59 walking dogs base_top tshirt hat thin_gloves
+hott meantempi=10 maxwspdi=0 meandewpti=0 male 25_34 ski/board night base_top base_bottom wool_sweater fleece down shell
+good meantempi=30 maxwspdi=0 meandewpti=10 female 45_59 ski/board groomers base_top base_bottom fleece_vest down fleece shell ski_pants smartwool gator
+hott meantempi=10 maxwspdi=0 meandewpti=0 female 19_24 running trail base_bottom yoga_pants tennis_shoes down shell
+cold meantempi=20 maxwspdi=0 meandewpti=10 male 25_34 ski/board groomers tshirt base_bottom balaclava shell
+cold meantempi=20 maxwspdi=0 meandewpti=0 female 19_24 ski/board moguls smartwool tshirt silk_long_underwear_bottom mittens
+cold meantempi=10 maxwspdi=0 meandewpti=0 female 19_24 running trail yoga_pants tennis_shoes
+hott meantempi=20 maxwspdi=0 meandewpti=10 male 25_34 ski/board groomers tshirt base_bottom fleece down_vest balaclava shell
+cold meantempi=0 maxwspdi=0 meandewpti=0 male 25_34 ski/board bunny base_top jacket balaclava compression_pants snow_pants wicking_socks smartwool_socks boots
+hott meantempi=20 maxwspdi=0 meandewpti=0 male 25_34 ski/board moguls base_top base_bottom fleece shell
+cold meantempi=60 maxwspdi=0 meandewpti=40 female 45_59 walking neighborhood tshirt shorts
+cold meantempi=40 maxwspdi=0 meandewpti=20 female 25_34 hiking flat capris tank_top
+cold meantempi=0 maxwspdi=0 meandewpti=-10 male 45_59 walking dogs tshirt flannel jeans insulated_jacket boots
+cold meantempi=0 maxwspdi=0 meandewpti=0 female 45_59 walking dogs base_bottom jeans base_top fleece
+hott meantempi=40 maxwspdi=0 meandewpti=10 female 25_34 ski/board groomers tshirt fleece shell
+good meantempi=20 maxwspdi=0 meandewpti=10 female 25_34 ski/board groomers tshirt fleece down snow_pants shell
+hott meantempi=30 maxwspdi=0 meandewpti=10 male 25_34 ski/board groomers tshirt ski_jacket
+cold meantempi=10 maxwspdi=0 meandewpti=0 female 45_59 walking neighborhood tshirt base_top hat running_tights windproof_pants wool_socks
+cold meantempi=20 maxwspdi=0 meandewpti=0 male 45_59 ski/board groomers base_top base_bottom shell ski_pants
+good meantempi=60 maxwspdi=0 meandewpti=40 female 45_59 walking neighborhood tshirt shorts cotton_sweatshirt
+hott meantempi=50 maxwspdi=0 meandewpti=10 female 25_34 hiking summit leggings tank_top down
+hott meantempi=50 maxwspdi=0 meandewpti=10 male 75+ walking path longsleeve_shirt lined_jacket
+cold meantempi=20 maxwspdi=0 meandewpti=10 female 45_59 ski/board groomers down fleece shell gator gloves smartwool base_bottom ski_pants gloves
+cold meantempi=10 maxwspdi=0 meandewpti=0 19_24 female ski/board groomers silk_long_underwear_bottom silk_long_underwear_top fleece_bottom fleece gator ski_helmet shell
+cold meantempi=20 maxwspdi=0 meandewpti=20 male 45_59 ski/board groomers tshirt fleece
+cold meantempi=30 maxwspdi=0 meandewpti=20 25_34 female ski/board groomers base_top base_bottom snow_pants shell
+good meantempi=10 maxwspdi=0 meandewpti=0 male 25_34 ski/board night down fleece shell
+good meantempi=40 maxwspdi=0 meandewpti=20 female 25_34 hiking flat capris tank_top fleece
+hott meantempi=20 maxwspdi=0 meandewpti=10 male 25_34 ski/board moguls base_top base_bottom fleece down_vest balaclava shell
+good meantempi=0 maxwspdi=0 meandewpti=0 female 45_59 walking dogs base_bottom jeans base_top cotton_sweater down
+hott meantempi=20 maxwspdi=0 meandewpti=10 female 25_34 ski/board bowls tshirt fleece down snow_pants shell
+hott meantempi=40 maxwspdi=0 meandewpti=20 female 25_34 hiking scramble leggings tank_top athletic_jacket wool_sweater
+hott meantempi=20 maxwspdi=0 meandewpti=10 female 25_34 ski/board groomers base_top base_bottom fleece down heavy_jacket
+cold meantempi=30 maxwspdi=0 meandewpti=20 male 45_59 ski/board groomers swim_suit down fleece shell
+hott meantempi=20 maxwspdi=0 meandewpti=10 male 25_34 ski/board moguls tshirt base_bottom fleece down_vest balaclava shell
+good meantempi=20 maxwspdi=0 meandewpti=20 male 45_59 ski/board groomers wool_long_underwear_top wool_long_underwear_bottom snow_pants fleece shell
+hott meantempi=10 maxwspdi=0 meandewpti=0 female 45_59 walking neighborhood tshirt base_top shell hat gloves running_tights windproof_pants wool_socks down fleece base_bottom
+cold meantempi=30 maxwspdi=0 meandewpti=10 female 45_59 ski/board groomers base_top base_bottom fleece_vest shell ski_pants double_socks
+good meantempi=30 maxwspdi=0 meandewpti=10 male 45_59 ski/board groomers base_top base_bottom fleece shell ski_pants
+hott meantempi=30 maxwspdi=0 meandewpti=10 male 25_34 ski/board groomers base_top base_bottom fleece wool_sweater turtle_neck shell
+hott meantempi=80 maxwspdi=0 meandewpti=60 male 45_59 beach laying swim suit down
+cold meantempi=30 maxwspdi=0 meandewpti=10 male 45_59 ski/board groomers base_top shorts fleece shell
+cold meantempi=30 maxwspdi=0 meandewpti=0 male 25_34 ski/board moguls tshirt base_bottom shell balaclava
+hott meantempi=60 maxwspdi=0 meandewpti=40 female 45_59 walking neighborhood base_bottom tshirt cotton_sweatshirt base_top heavy_jacket
+good meantempi=40 maxwspdi=0 meandewpti=20 female 25_34 hiking trail leggings tank_top athletic_jacket
+hott meantempi=20 maxwspdi=0 meandewpti=10 female 25_34 ski/board groomers base_top base_bottom down shell
+hott meantempi=40 maxwspdi=0 meandewpti=20 male 25_34 hiking trail athletic_button_down dryfit_pants down_vest fleece
+hott meantempi=50 maxwspdi=0 meandewpti=10 male 25_34 hiking summit drifit_pants tshirt ski_pants down_vest
+good meantempi=50 maxwspdi=0 meandewpti=10 male 25_34 hiking summit drifit_pants tshirt
+cold meantempi=20 maxwspdi=0 meandewpti=0 female 19_24 ski/board groomers smartwool silk_long_underwear_top silk_long_underwear_bottom mittens
+hott meantempi=80 maxwspdi=0 meandewpti=60 male 45_59 beach laying swim suit fleece
+cold meantempi=0 maxwspdi=0 meandewpti=0 female 19_24 walking city wool_socks leggings base_top fleece boots
+hott meantempi=80 maxwspdi=0 meandewpti=60 male 45_59 beach laying swim suit
