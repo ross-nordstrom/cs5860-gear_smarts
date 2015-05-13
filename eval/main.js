@@ -421,6 +421,27 @@ function getData(filename, callback) {
         return callback(null, formattedData);
     });
 }
+function partitionData(percentTrain, sourceFile, destTrain, destTest) {
+    console.log("Partition data into " + percentTrain + "% training");
+    var dataBuf = fs.readFileSync(sourceFile, {encoding: 'utf8'});
+    var data = dataBuf.split("\n");
+
+    var boundary = _.size(data) * percentTrain / 100;
+    console.log(" -> " + _.size(data) + " rows. Split at " + boundary);
+    var trainAndTestIdxs = _.partition(_.shuffle(_.range(data.length)), function (randIdx, i) {
+        return i < boundary;
+    });
+    var train = _.map(trainAndTestIdxs[0], function (idx) {
+        return data[idx];
+    });
+    var test = _.map(trainAndTestIdxs[1], function (idx) {
+        return data[idx];
+    });
+
+    fs.writeFileSync(destTrain, train.join("\n"));
+    fs.writeFileSync(destTest, test.join("\n"));
+    console.log("Done partitioning " + _.size(train) + " training, " + _.size(test) + " testing rows");
+}
 
 /***********************************************************************************************************************
  * Export
@@ -443,3 +464,4 @@ exports.getTestingData = getTestingData;
 exports.normalizeComfortData = normalizeComfortData;
 exports.formatWeather = formatWeather;
 exports.logger = logger;
+exports.partitionData = partitionData;
