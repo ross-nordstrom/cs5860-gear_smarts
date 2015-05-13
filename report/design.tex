@@ -2,14 +2,18 @@
 \label{section:design}
 To develop a climate and activity based outfit suggestion tool, the problem has been broken into parts.
 At its core is a machine learning algorithm along with a datastore for the training data. Wrapping that is
-a query system and optimistically a mobile app for training the system. Additionally, an outfit modeller and persistence
-engine will be implemented. In this section, the envisioned parts of the system are presented.
+a query system and eventually a mobile app for training the system. Additionally, an outfit modeller and persistence
+engine will be implemented base on experience from evaluating the system by hand.
+In this section, the envisioned parts of the system are presented. Note, this is the vision for the system as a whole and
+not all components have been implemented for this report.
 
 \subsection{Learning Core}
 Firstly, Support Vector Machine (SVM) \cite{SVM} was chosen as the machine learning method for implementing an outfit predictor.
-Justification for this choice is provided in \ref{section:mlsvm}. Some other methods which were considered are
+Justification for this choice is provided in Section \ref{section:mlsvm}. Some other methods which were considered are
 denoted in \ref{section:mloptions}. The learning core was implemented as a Node.js RESTful API to make it easy for a
-Mobile App or Web UI to consume on behalf of users of Gear Smarts. The API is described below in \ref{section:mlapi}.
+Mobile App or Web UI to consume on behalf of users of Gear Smarts. It has the additional benefit of being very easy to
+script against, something that made evaluation of the tool much more approachable.
+The API is described below in Section \ref{section:mlapi}.
 
 \subsubsection{Justification for SVM}
 \label{section:mlsvm}
@@ -22,7 +26,9 @@ help us react to changing or perhaps surprising discoveries.
 
 The second reason for using SVMs is there is already an easy-to-use Node.js implementation library, \texttt{node-svm}
 \cite{Github:nodesvm}. Since the details of implementing SVM are abstracted away, all we need concern ourselves with in
-the GearSmarts API is normalizing and namespacing the datasets provided by consumers.
+the GearSmarts API is normalizing and namespacing the datasets provided by consumers. Even better, \texttt{node-svm}
+simply uses LIBSVM \cite{lib:libsvm} under the hood, which has been ported to or exposed in most major languages. The
+widespread availability of this library means GearSmarts could be easily ported as-is to any of those languages.
 
 Thirdly, the author already had experience with popular machine learning methods like Aritificial Neural Networks, and
 Decision Trees. Support vector machines offer an opportunity to learn a new method and compare it to experiences with
@@ -31,14 +37,20 @@ other methods.
 \subsubsection{Collecting Data}
 In lieu of having a UI for users to train the system, a Google Form questionairre (included in Appendix
 \ref{appendix:comfort_form}) was created for
-friends and family to contribute datapoints. At the time of the midterm, about 50 datapoints have been collected
-(Appendix \ref{appendix:comfort_responses}).
+friends and family to contribute datapoints. The response dataset includes about 50 datapoints (Appendix \ref{appendix:comfort_responses}).
 
-If need be, supplemental data will be synthesized by covering the obvious cases. For example it's safe to say anybody
+Since the responses were provided in a clear-text and ``human'' format, they were reformatted by hand into a CSV format
+starting with a class (``good'', ``cold'', ``hott'') and a locale descriptor, followed by activity, demographic, and
+outfit features. To overcome the limited dataset size, the polled responses were duplicated and altered to produce ``obvious''
+comfort classifications. For example if a person is hot in an outfit, adding more layers to it will still be hott.
+Likewise, a ``common sense'' approach was used to fill in the opposite comfort class. For example, it's safe to say anybody
 would be hot in three coats on a 70-degree day, and that anybody would be cold in a T-shirt on a 5-degree day.
+More details on the data normalization process are discussed in Section \ref{subsection:preprocessing}
 
 Regardless of the data collected for the outfit-specific problem, GearSmarts capabilities can be estimated by evaluating
-it with published datasets.
+it with published classification datasets, discussed in Section \ref{subsection:publicdatasets}. By assuring that the API
+is capable of learning once the trained dataset is large enough, the target of outfit comfort classification
+can be mastered more gradually over time with use of the system.
 
 \subsubsection{Machine Learning RESTful API}
 \label{section:mlapi}
