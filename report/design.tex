@@ -76,6 +76,8 @@ http://localhost:8080/v1/ml/outfits/train/good
 'snow_pants','base_top','base_bottom','shell']"
 \end{lstlisting}
 
+
+
 In order to normalize the dataset, the server puts features into a dictionary of known features and uses their index
 in the list for the SVM. The same combination of dictionary and indexing is used for the classifications to. This approach
 was taken because the SVM library requires integer inputs. Examples of the dictionaries are shown in table
@@ -123,6 +125,14 @@ Section \ref{section:market}.
     \label{table:datarow}
 \end{table}
 
+Along with the main classifier routes, GearSmarts also supports the querying of weather data using Wunderground \cite{wunderground}.
+The route is accessed with a simple HTTP GET including a location and date, shown below. To reduce usage of Wunderground's limited
+free tier API, all queries are cached on the filesystem. This has the additional benefit of making the usage of the weather info
+easy to use in evaluation scripts.
+
+\begin{description}
+    \item{\texttt{/v1/weather?date=12/31/2014&region=CO&city=Colorado Springs}} - Get weather for a given date and place
+\end{description}
 
 
 \subsection{Problem Modeling}
