@@ -10,36 +10,35 @@ outfit selection, and general temperature/climate automation. Here several relat
 
 \subsection{Fashionable Outfit Selection}
 Yu et al. \cite{Dressup} uses a wardrobe of known clothes to suggest outfits based on the user's appearance.
-Of note is that outfits are suggested based on a dress code constraint, which is a similar task to
-the challenge of outfit selection.
+Outfits are suggested based on a dress code constraint, which is a similar task to
+the challenge of activity-based outfit selection.
 
 Rode et al. \cite{SmartCloset} works on outfit selection and sharing, focused on comparing and lending wardrobe
 to others. There may be some similarities between this and the idea of comparing user outfit preferences
 for GearSmarts.
 
-Liu et al. \cite{MagicCloset} used Amazon's Mechanical Turk to fill a database of available-to-purchase outfits.
-Using this dataset, they constructed an occasion-oriented outfit suggestion tool similar to \cite{Dressup}.
+Liu et al. \cite{MagicCloset} use Amazon's Mechanical Turk to fill a database of available-to-purchase outfits.
+Using this dataset, they constructed an occasion-oriented outfit suggestion tool similar to Yu et al.\cite{Dressup}
 
-\cite{ThermalComfort} discusses a new approach to thermal control of homes. This could relate well to
+Clear et al. \cite{ThermalComfort} discusses a new approach to thermal control of homes. This could relate well to
 adapting GearSmarts to sub-activities with different thermal properties (e.g. mogul vs groomer skiing).
 
 \subsection{Machine Learning Technique Selection}
-There are numerous papers discussing and comparing the various options for machine learning techniques.
+There is extensive research discussing and comparing the various options for machine learning techniques.
 Some relevant papers used in the decision of which technique to use for GearSmarts include \cite{ML:MapReduceClusters},
 Clear et al. \cite{ML:ManufacturingSystems}, \cite{ML:IPTraffic}, and \cite{ML:GeoMapping}. Ultimately, SVMs were selected
 for their simplicity to use thanks to widely available libraries, support for multi-class classification, and configurability
 via various kernels. Regardless of SVMs being the choice as of this report, the design of GearSmarts allows for SVMs
 to easily be swapped out for other machine learning techniques, while affecting very little of the overall system and
-architecture. A brief overview of some considered techniques is shown below.
+architecture. A brief overview of some considered techniques are described below.
 
 \begin{description}
   \item{Support Vector Machine \cite{SVM}:} Non-linear classification using the ``kernel trick.'' A short-coming is solving for multiple
-  classes can add complexity, as a common technique is to use multiple binary SVM classifiers. While this can be worked with
-  for GearSmarts, it has the potential to be limiting.
+  classes adds complexity, solved by the use of multiple binary SVM classifiers.
   \item{kNN \cite{KNN}:} Can help to simplify a problem in the absence of a good model of the larger application
   \item{Decision tree \cite{DecisionTree}:} Again, this is a relatively simple implementation that replaces modeling with basic relationships
   \item{Bayesian network \cite{BayesianNetwork}:} Takes a statistical approach to modeling data
-  \item{Artificial Neural Network \cite{ANN}:} These can adapt to a huge variety of problems, and are interesting in that they emulate
-  human (and animal) learning. A major down-side is they can be complex and costly to implement.
-  \item{Others:} There are many many other machine learning techniques that could also be investigated.
+  \item{Artificial Neural Network \cite{ANN}:} These can be applied to a huge variety of problems, and are interesting in that they emulate
+  human (and animal) learning. A major downfall is they can be complex and costly to implement.
+  \item{Others:} There are countless other machine learning techniques that could also be investigated.
 \end{description}
