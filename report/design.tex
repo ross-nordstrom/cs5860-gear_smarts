@@ -58,65 +58,69 @@ In order to make Gear Smarts as extensible and usable as possible, the machine l
 as a RESTful server, exposing two key routes describe below.
 
 \begin{description}
-    \item{\texttt{/v1/machinelearning/:namespace/train/:classification}} asdf
-    \item{\texttt{/v1/machinelearning/:namespace/classify}} asdf
+    \item{\texttt{/v1/machinelearning/:namespace/train/:classification}} - Train the classifier on a single feature vector
+    \item{\texttt{/v1/machinelearning/:namespace/classify}} - Classify a single feature vector
 \end{description}
 
 Both routes take a \texttt{:namespace} argument, which is simply an extensibility mechanism allowing consumers to train
 many distinct datasets. For example, consumers training the \texttt{candy} namespace would not affect consumers training
-the \texttt{produce} namespace.
+the \texttt{fruits} namespace.
 
-Additionally, each route expects a \texttt{POST} body containing either an Array of features to
-train or classify. Interaction with a GearSmarts server is as simple as making an HTTP call. An example of an Object
-training structure is shown below.
+Additionally, each route expects a \texttt{POST} body or \texttt{GET} query containing an Array of features to
+train or classify under the \texttt{features} property. Interaction with a GearSmarts server is as simple as
+making an HTTP call. An example of a training call is shown presently:
 
 \begin{lstlisting}
-{
-    "sport": "ski",
-    "snowpants": true,
-    "base": true,
-    "downCoat": true,
-    "shell": true,
-    "temp": 58.3,
-    "humidity": 0.10,
-    "pressure": 1
-}
+http://localhost:8080/v1/ml/outfits/train/good
+?features="['ski','groomers','meantempi=40',
+'snow_pants','base_top','base_bottom','shell']"
 \end{lstlisting}
 
-In order to normalize the dataset, the server will put features into a dictionary of known features. Since SVMs are
-fast, we can just store all datapoints ever seen for the namespace, and re-train with each new incoming datapoint.
-The dictionary simply converts the key/value object into a tabular structure. An example of what the dictionary would
-look like after the above training datapoint and a few others is shown below.
+In order to normalize the dataset, the server puts features into a dictionary of known features and uses their index
+in the list for the SVM. The same combination of dictionary and indexing is used for the classifications to. This approach
+was taken because the SVM library requires integer inputs. Examples of the dictionaries are shown in table
+\ref{table:dictionary} and table \ref{table:datarow}. As an additional noe,
+trained data rows are stored in the API to more easily reason over the produced SVM. This storage currently lives in
+memory only, but would eventually be moved to a database of some sort for persistence in a productized GearSmarts.
+This data store also would make it easy to query and search outfits in use towards the marketing goals mentioned in
+Section \ref{section:market}.
 
 \begin{table}
-\label{table:classifications}
     \begin{tabular}{lll}
         \hline
-        \multicolumn{3}{c}{Classification} \\
+        \multicolumn{3}{c}{Classifications} \\
         \hline
         0 & 1 & 2 \\
         hott & good & cold \\
         \hline
+        \hline
     \end{tabular}
-    \caption{The SVM prefers integer classifications, so store an Array of known classes, and use their index in the SVM}
+    \begin{tabular}{lll}
+        \multicolumn{3}{c}{Features} \\
+        \hline
+        0 & 1 & 2 \\
+        meantempi=35 & snowpants & ... \\
+        \hline
+    \end{tabular}
+    \caption{The SVM prefers integer classifications and features, so GearSmarts stores an Array of known classes and features,
+    and uses their indexes in the SVM}
+    \label{table:dictionary}
 \end{table}
 
 \begin{table}
-\label{table:dictionary}
-    \begin{tabular}{lllllr}
+    \begin{tabular}{llllr}
         \hline
-        \multicolumn{6}{c}{Trained Data} \\
-        \multicolumn{5}{c}{Features} & Class \\
+        \multicolumn{5}{c}{Trained Data} \\
+        \multicolumn{4}{c}{Features} & Class \\
         \hline
-        sport   & snowpants & base  & downCoat & temp   \\
-        \hline
-        \hline
-        ski     & true      & true  & true      & 58.3  & 0 \\
-        iceFish & true      & true  & true      & 43.1  & 2 \\
-        hike    & false     & false & true      & 49.6  & 1 \\
+        ski     & downCoat  & helmet      & temp=25  & 0 \\
+        iceFish & downParka  & woolHat      & temp=20  & 2 \\
+        hike    & tshirt & temp=70  & & 1 \\
         \hline
     \end{tabular}
-    \caption{The dataset is stored as a table with an Array of feature names and Array of Arrays of feature values}
+    \caption{The dataset is stored as a table with an Array of feature names and Array of Arrays of feature values. Note that rows
+    do not need to have consistent feature vector sizes.}
+    \label{table:datarow}
 \end{table}
 
 
