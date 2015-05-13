@@ -1,12 +1,12 @@
 \section{Evaluation}
 \label{section:evaluation}
 Evaluation of the GearSmarts API was done via Node.js scripts automating the training and classifying of files
-stored on the filesystme. Evaluation was done in two main parts: first evaluating GearSmarts against known, large datasets
+stored on the file system. Evaluation was done in two main parts: first evaluating GearSmarts against known, large datasets
 to verify the machine learning core works well and as expected, and second evaluating GearSmarts with the collected
 outfit-comfort responses.
 
 Evaluations of the classifier are recorded in terms of ``True Positive" (TP), ``False Negative" (FN), ``False Positive"
-(FP), \& ``True Negative" (TN), indicating what was predicted verse what the data's actual class. Then, the results are
+(FP), \& ``True Negative" (TN), indicating what was predicted versus the data's actual class. Then, the results are
 presented in terms of some commonly used formulas: ``Precision", ``Recall", ``Specificity", and ``Accuracy"
 \cite{measures}. A description of these formulas is shown in table \ref{table:measures}.
 
@@ -32,7 +32,7 @@ each of the classes. This shows the performance of the classifier on each class 
 \label{subsection:publicdatasets}
 First, to evaluate the efficacy of the machine learning core, GearSmarts was evaluated using datasets from LIBSVM \cite{libsvm:datasets}.
 A large part of the evaluation was the question of how would the feature and classification dictionary and indexing implementation
-impact performance.
+would impact performance.
 
 A Node.js script was used to parse train and test files, query the GearSmarts API with each, and evaluate the performance.
 The evaluation script and datasets can be found in the \texttt{eval/} directory of the source code for this report.
@@ -55,10 +55,10 @@ form, including weather data from the GearSmarts API.
 
 \subsubsection{Pre-processing}
 \label{subsection:preprocessing}
-The responses from the survey were transformed in a few phases in order to normalize and extrapolate the dataset into a
+The responses from the survey were transformed in a few phases in order to normalize and extrapolate the information into a
 larger, more useful dataset.
 
-First from the free-text response to a feature-vector CLS structure
+The first transformation is from the free-text survey response to a feature-vector CLS structure
 containing only a weather link but no data, and activity, demographic, and outfit features. Some interpretation of articles of clothing
 was used to reduce the variety of outfit features. Each row in the prepared data
 files consists of (1) a class (good, hott, cold), (2) path of the filesystem-cached weather info for that location and
@@ -66,11 +66,11 @@ date, and (3) the activity, demographic, and outfit features.
 
 Second, the raw datapoints were duplicated with different classes with the outfit features manually modified to make sense.
 This synthesized data is considered reasonable because it followed two rules. The first rule is if someone was hot, adding
-more layers will not change the class and vice-versa with removing layers and the cold class. The second rule was more of a
+more layers will not change the class and vice-versa with removing layers in the cold class. The second rule was more of a
 common sense rule to convert ``good'' class rows into ``hott'' and ``cold,'' and convert ``hott'' to ``cold'' class rows
 vice-versa. This common sense rule was simply an application of the author's common sense with what it would take to
-change someone's comfort level. For example if a skier was ``good`` with the outfit \texttt{['baseLayerTop', 'baseLayerBottom', 'fleece', 'shell']},
-it is reasonable to say they would be made ``hott'' by adding the layers \texttt{['down','woolSweater','sweatPants']}.
+change someone's comfort level. For example if a skier was ``good`` with the outfit \texttt{[`baseLayerTop', `baseLayerBottom', `fleece', `shell']},
+it is reasonable to say they would be made ``hott'' by adding the layers \texttt{[`down',`woolSweater',`sweatPants']}.
 
 Finally, the CSV file was processed to convert each weather directory path into a feature vector which ultimately replaced the
 weather path in the data CSV. There was some playing around with which weather features to use, something that will and should
