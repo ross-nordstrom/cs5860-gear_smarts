@@ -50,6 +50,50 @@
  *    recall: 0.043,
  *    specificity: 0.917
  *  }
+ *
+ *  //
+ *  // Partition comfort response data, then train and test on it
+ *  //
+ *  var x = require('./eval/main.js');
+ *  x.partitionData(60, './eval/comfort/normalized.txt', './eval/comfort80');
+ *  x.train('comfort80', x.logger)
+ *  // Wait for it to complete
+ *
+ *  // What's the performance classifying 'good'?
+ *  x.test('comfort80', 'good', x.logger)
+ *  // Hot?
+ *  x.test('comfort80', 'hott', x.logger)
+ *  // Cold?
+ *  x.test('comfort80', 'cold', x.logger)
+ *
+ *  //==> Example output on a good partition:
+ *  // Good @60%
+ *  {
+ *    count: 52,
+ *    raw: { TP: 6, TN: 18, FP: 7, FN: 21 },
+ *    accuracy: 0.462,
+ *    precision: 0.462,
+ *    recall: 0.222,
+ *    specificity: 0.72
+ *  }
+ *  // Hot @60%
+ *  {
+ *    count: 52,
+ *    raw: { TP: 15, TN: 9, FP: 17, FN: 11 },
+ *    accuracy: 0.462,
+ *    precision: 0.469,
+ *    recall: 0.577,
+ *    specificity: 0.346
+ *  }
+ *  // Cold @60%
+ *  {
+ *    count: 52,
+ *    raw: { TP: 3, TN: 21, FP: 4, FN: 24 },
+ *    accuracy: 0.462,
+ *    precision: 0.429,
+ *    recall: 0.111,
+ *    specificity: 0.84
+ *  }
  */
 
 /*global exports, process, require, exports */
